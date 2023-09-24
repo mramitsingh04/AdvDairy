@@ -4,42 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cb0ac0c-f565-4227-bbb3-e09c1414b2be" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway-server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api-gateway-server/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/src/main/java/com/generic/khatabook/discovery/server/DiscoveryServerApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/review-service/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/review-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/review-service/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/specification-service/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/specification-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/specification-service/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/generic/khatabook/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="1cb0ac0c-f565-4227-bbb3-e09c1414b2be" name="Changes" comment="Initial Project State" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +55,19 @@
       <option name="presentableId" value="Default" />
       <updated>1695575989386</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Project State">
+      <created>1695577598994</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695577598994</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Project State" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial Project State" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
