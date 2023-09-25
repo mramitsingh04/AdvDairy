@@ -1,0 +1,28 @@
+package com.generic.khatabook.model;
+
+import com.generic.khatabook.model.CustomerProductSpecificationUpdatable;
+import com.generic.khatabook.model.UnitOfMeasurement;
+import com.generic.khatabook.model.UnitOfValue;
+
+import java.util.Objects;
+
+public record CustomerProductSpecificationDTO(String id, String productId,
+                                              float quantity,
+                                              UnitOfValue unitOfValue,
+                                              UnitOfMeasurement unitOfMeasurement) {
+
+
+    public static CustomerProductSpecificationDTO nonProduct() {
+        return new CustomerProductSpecificationDTO(null, null, 1, UnitOfValue.non(), UnitOfMeasurement.NONE);
+    }
+
+    public CustomerProductSpecificationUpdatable updatable() {
+        return new CustomerProductSpecificationUpdatable(this.id, this.productId, this.quantity, this.unitOfValue,
+                this.unitOfMeasurement);
+    }
+
+    public boolean hasCustomerSpecificPrice() {
+        return Objects.nonNull(unitOfValue()) && Objects.nonNull(unitOfValue().price());
+    }
+}
+
