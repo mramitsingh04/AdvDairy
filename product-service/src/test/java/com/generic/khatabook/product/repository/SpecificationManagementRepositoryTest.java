@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class SpecificationManagementRepositoryTest {
 
     @Autowired
-    SpecificationManagementRepository repository;
+    SpecificationRepository repository;
 
     @Test
     void saveSpecification() {

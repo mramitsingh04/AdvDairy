@@ -7,9 +7,8 @@ import com.generic.khatabook.product.model.Container;
 import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 import com.generic.khatabook.product.model.UnitOfMeasurement;
-import com.generic.khatabook.product.repository.ProductManagementRepository;
-import com.generic.khatabook.product.repository.ProductRatingRepository;
-import com.generic.khatabook.product.services.ProductManagementService;
+import com.generic.khatabook.product.repository.ProductRepository;
+import com.generic.khatabook.product.services.ProductService;
 import com.generic.khatabook.product.services.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +19,9 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ProductManagementServiceImpl implements ProductManagementService {
+public class ProductServiceImpl implements ProductService {
 
-    private final ProductManagementRepository myProductManagementRepository;
-    private final ProductRatingRepository myProductRatingRepository;
+    private final ProductRepository myProductManagementRepository;
     private final ProductMapper myProductMapper;
 
     @Override

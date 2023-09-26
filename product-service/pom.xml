@@ -48,12 +48,10 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
         </dependency>
- <!--       <dependency>
-            <groupId>com.generic.khatabook</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

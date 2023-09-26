@@ -5,7 +5,7 @@ import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 
 import java.util.List;
-public interface ProductManagementService {
+public interface ProductService {
 
     List<ProductDTO> findAllProducts();
 

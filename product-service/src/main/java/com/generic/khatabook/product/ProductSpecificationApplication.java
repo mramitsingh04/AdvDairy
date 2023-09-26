@@ -2,14 +2,16 @@ package com.generic.khatabook.product;
 
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
-public class KhatabookSpecificationApplication {
+@EnableDiscoveryClient
+public class ProductSpecificationApplication {
 
     public static void main(String[] args) {
-        run(KhatabookSpecificationApplication.class, args);
+        run(ProductSpecificationApplication.class, args);
     }
 
 }

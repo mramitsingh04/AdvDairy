@@ -2,7 +2,7 @@ package com.generic.khatabook.product.controller;
 
 import com.generic.khatabook.product.exceptions.AppEntity;
 import com.generic.khatabook.product.exceptions.NotFoundException;
-import com.generic.khatabook.product.services.SpecificationManagementService;
+import com.generic.khatabook.product.services.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
@@ -16,10 +16,10 @@ import com.generic.khatabook.product.model.*;
 public class SpecificationManagementController {
 
 
-    private SpecificationManagementService mySpecificationManagementService;
+    private SpecificationService mySpecificationManagementService;
 
     @Autowired
-    public SpecificationManagementController(final SpecificationManagementService specificationManagementService) {
+    public SpecificationManagementController(final SpecificationService specificationManagementService) {
         mySpecificationManagementService = specificationManagementService;
     }
 

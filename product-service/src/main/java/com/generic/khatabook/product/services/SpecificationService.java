@@ -4,7 +4,7 @@ package com.generic.khatabook.product.services;
 import com.generic.khatabook.product.model.SpecificationDTO;
 
 import java.util.List;
-public interface SpecificationManagementService {
+public interface SpecificationService {
     SpecificationDTO addSpecification(SpecificationDTO specification);
 
     boolean findById(String id);
