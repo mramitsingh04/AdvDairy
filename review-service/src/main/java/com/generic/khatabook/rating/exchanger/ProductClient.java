@@ -11,7 +11,7 @@ public interface ProductClient {
     @GetExchange("/product-service/products")
     ResponseEntity<ProductDTO> getAllProducts();
 
-    @GetExchange("/product-service/product/{productId}")
+    @GetExchange("/product-service/{productId}")
     ResponseEntity<ProductDTO> getProductById(@PathVariable String productId);
 
 

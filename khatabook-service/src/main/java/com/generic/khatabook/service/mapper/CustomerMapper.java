@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -35,7 +36,7 @@ public class CustomerMapper implements Mapper<Customer, CustomerDTO, CustomerUpd
         }
         return Customer.builder()
                 .customerSpecification(specification)
-                .customerId(myCustomer.customerId())
+                .customerId(UUID.fromString(myCustomer.customerId()))
                 .khatabookId(myCustomer.khatabookId())
                 .firstName(myCustomer.firstName())
                 .lastName(myCustomer.lastName())
@@ -61,7 +62,8 @@ public class CustomerMapper implements Mapper<Customer, CustomerDTO, CustomerUpd
 
         CustomerSpecificationDTO specification = specificationMapper.mapToDTO(customer.getCustomerSpecification());
         List<Product> products = customer.getProducts()!=null ? customer.getProducts().stream().map(this::buildProduct).collect(Collectors.toList()) : Collections.emptyList();
-        return new CustomerDTO(customer.getCustomerId(), customer.getKhatabookId(), customer.getMsisdn(), customer.getFirstName(), customer.getLastName(), products, specification);
+        return new CustomerDTO(customer.getCustomerId().toString(), customer.getKhatabookId(), customer.getMsisdn(),
+                customer.getFirstName(), customer.getLastName(), products, specification);
     }
 
     private Product buildProduct(CustomerProduct customerProduct) {

@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: "off"
   application:
-    name: product-service
+    name: product-specification-service
   h2:
     datasource:
       url: jdbc:h2:mem:testdb
@@ -40,12 +40,6 @@ management:
         include: '*'
   health:
     sho-details: always
-    group:
-      custom:
-        show-components: always
-        show-details: always
-
-
 graphql:
   servlet:
     mapping: /apis/graphql

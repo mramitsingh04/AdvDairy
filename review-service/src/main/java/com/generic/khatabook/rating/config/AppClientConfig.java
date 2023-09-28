@@ -2,6 +2,7 @@ package com.generic.khatabook.rating.config;
 
 import com.generic.khatabook.rating.exchanger.CustomerClient;
 import com.generic.khatabook.rating.exchanger.ProductClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,20 +18,33 @@ public class AppClientConfig {
         return factory.createClient(CustomerClient.class);
     }
     @Bean
+    @LoadBalanced
     public ProductClient productClient() {
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(specificationWebClient())).build();
+
+        final WebClientAdapter clientAdapter = WebClientAdapter.forClient(productServiceWebClient());
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(clientAdapter).build();
         return factory.createClient(ProductClient.class);
     }
+    @Bean
+    @LoadBalanced
+    WebClient.Builder builder() {
+        return WebClient.builder();
+    }
 
+    @Bean
+    WebClient webClient(WebClient.Builder builder) {
+        return builder.build();
+    }
 
     @Bean
     public WebClient customerWebClient() {
-        return WebClient.builder().baseUrl("http://localhost:8800").build();
+        return builder().baseUrl("http://localhost:8800").build();
     }
 
     @Bean
-    public WebClient specificationWebClient() {
-        return WebClient.builder().baseUrl("http://localhost:6600").build();
+    @LoadBalanced
+    public WebClient productServiceWebClient() {
+        return builder().baseUrl("lb://product-service").build();
     }
 
 }

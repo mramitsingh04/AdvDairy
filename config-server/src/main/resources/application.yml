@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          password: mramitsingh04
+          username: Amit.Singh04
+          clone-on-start: 'true'
+          uri: https://github.com/mramitsingh04/DairyAppConfigData
+  application:
+    name: dairy-app-config-data
+server:
+  port: '8012'

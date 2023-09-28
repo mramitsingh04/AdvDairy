@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "customer_products")
 @AllArgsConstructor
@@ -18,10 +20,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 public class CustomerProduct {
     @Id
-    @Column(name = "ID")
-    @SequenceGenerator(name = "cus_prod_seq", sequenceName = "CUS_PROD_SEQ", allocationSize = 10)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cus_prod_seq")
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID cusProdId;
     @Transient
     private String productName;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

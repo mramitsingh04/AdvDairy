@@ -1,4 +1,6 @@
 spring:
+  main:
+    banner-mode: "off"
   application:
     name: khatabook-service
   h2:
@@ -23,7 +25,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     password: root
     username: root
-    url: jdbc:mysql://localhost:3306/khatabook_db?useSSL=false
+    url: jdbc:mysql://localhost:3306/general_khatabook_db?useSSL=false
 
   mvc:
     throw-exception-if-no-handler-found: 'true'
@@ -52,7 +54,10 @@ logging:
 server:
   port: 8600
 eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
 

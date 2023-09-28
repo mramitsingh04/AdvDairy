@@ -1,4 +1,6 @@
 spring:
+  main:
+    banner-mode: "off"
   application:
     name: rating-service
   h2:
@@ -48,6 +50,9 @@ logging:
 server:
   port: 6300
 eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

@@ -1,0 +1,57 @@
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes[0]:
+        id: product-service
+        uri: lb://product-service
+        predicates[0]: Path=/product-service/**
+      routes[1]:
+        id: rating-service
+        uri: lb://rating-service
+        predicates[0]: Path=/rating-service/**
+      routes[2]:
+        id: discovery-service
+        uri: http://localhost:8761
+        predicates[0]: Path=/eureka/web
+        filter[0]: SetPath=/
+      routes[3]:
+        id: discovery-service-static
+        uri: http://localhost:8761
+        predicates[0]: Path=/eureka/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    sho-details: always
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+    reactor:
+      netty: INFO
+
+server:
+  port: 9000
+
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

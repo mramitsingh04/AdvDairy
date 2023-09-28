@@ -12,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -25,13 +26,13 @@ import java.util.List;
 public class CustomerSpecification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String customerSpecificationId;
+    private UUID customerSpecificationId;
     private String specificationName;
     private String description;
     @Version
     private int version;
     private String specificationFor;
-    @OneToMany(mappedBy = "customerSpecification", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customerProductSpecId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CustomerProductSpecification> customerProductSpecifications;
     @CreationTimestamp
     private LocalDateTime createdOn;

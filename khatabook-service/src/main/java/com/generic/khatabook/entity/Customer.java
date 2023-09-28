@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "customers")
@@ -18,7 +19,7 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String customerId;
+    private UUID customerId;
     private String khatabookId;
     private String msisdn;
     private String firstName;
@@ -35,7 +36,7 @@ public class Customer {
     private CustomerSpecification customerSpecification;
 
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cusProdId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<CustomerProduct> products;
 

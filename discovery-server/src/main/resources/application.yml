@@ -1,8 +1,12 @@
 spring:
-  application: Discovery Server
+  main:
+    banner-mode: "off"
+  application:
+    name: discovery-service
 
 eureka:
   instance:
+    prefer-ip-address: true
     hostname: localhost
   client:
     registerWithEureka: false

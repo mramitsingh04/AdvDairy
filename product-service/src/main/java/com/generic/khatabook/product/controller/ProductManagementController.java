@@ -1,7 +1,9 @@
 package com.generic.khatabook.product.controller;
 
 import com.generic.khatabook.product.exceptions.AppEntity;
+import com.generic.khatabook.product.exceptions.ApplicationException;
 import com.generic.khatabook.product.exceptions.IllegalArgumentException;
+import com.generic.khatabook.product.exceptions.InputValidationException;
 import com.generic.khatabook.product.exceptions.InvalidArgumentException;
 import com.generic.khatabook.product.exceptions.NotFoundException;
 import com.generic.khatabook.product.model.ProductDTO;
@@ -22,12 +24,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
 @RestController
 @RequestMapping("product-service")
 @RequiredArgsConstructor
 public class ProductManagementController {
     private final ProductService myProductService;
-    private  final IdGeneratorService myIdGeneratorService;
+    private final IdGeneratorService myIdGeneratorService;
 
 
     @PostMapping(path = "/products")
@@ -40,7 +43,7 @@ public class ProductManagementController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(path = "/product")
+    @PostMapping(path = "/")
     public ResponseEntity<?> create(@RequestBody ProductDTO product) {
         final List<ProductDTO> entityModel = myProductService.findProductByName(product.name());
         if (Objects.isNull(entityModel)) {
@@ -54,7 +57,7 @@ public class ProductManagementController {
         }
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/{productId}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable String productId) {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
         if (Objects.isNull(entityModel)) {
@@ -64,12 +67,11 @@ public class ProductManagementController {
         return ResponseEntity.ok(entityModel);
     }
 
-    @GetMapping("/product/")
-    public ResponseEntity<ProductViews> searchProductByQuery(@RequestParam(required = false) String name,
-                                                             @RequestParam(required = false) String unitOfMeasurement)
+    @GetMapping("/")
+    public ResponseEntity<ProductViews> searchProductByQuery(@RequestParam(required = false) String name, @RequestParam(required = false) String unitOfMeasurement)
     {
 
-        List<ProductDTO> products = null;
+        final List<ProductDTO> products;
         try {
             if (Objects.nonNull(name)) {
                 products = myProductService.findProductByName(name);
@@ -94,7 +96,7 @@ public class ProductManagementController {
     }
 
 
-    @DeleteMapping("/product/{productId}")
+    @DeleteMapping("/{productId}")
     public ResponseEntity<ProductDTO> deleteProductById(@PathVariable String productId) {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
         if (Objects.isNull(entityModel)) {
@@ -106,17 +108,24 @@ public class ProductManagementController {
     }
 
 
-    @PutMapping("/product/{productId}")
+    @PutMapping("/{productId}")
     public ResponseEntity<?> updateProduct(@PathVariable String productId, @RequestBody ProductDTO product) {
         if (!myProductService.findProductById(productId).isPresent()) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
         }
 
-        final ProductDTO productDTO = myProductService.updateProduct(product);
+        final ProductDTO productDTO;
+        try {
+            productDTO = myProductService.updateProduct(product);
+        } catch (InputValidationException e) {
+            return ResponseEntity.of(e.get()).build();
+        } catch (Exception e) {
+            return ResponseEntity.of(new ApplicationException(AppEntity.PRODUCT, e.getMessage()).get()).build();
+        }
         return ResponseEntity.ok(productDTO);
     }
 
-    @PatchMapping(path = "/product/{productId}", consumes = "application/json-patch+json")
+    @PatchMapping(path = "/{productId}", consumes = "application/json-patch+json")
     public ResponseEntity<?> updatePartialProduct(@PathVariable String productId, @RequestBody Map<String, Object> productEntities) {
         final ProductUpdatable entityModel = myProductService.findProductById(productId).updatable();
         if (Objects.isNull(entityModel)) {

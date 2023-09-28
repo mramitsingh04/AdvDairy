@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -35,7 +36,7 @@ public class CustomerSpecificationMapper implements Mapper<CustomerSpecification
         }
         List<CustomerProductSpecification> allCustomerProductSpecification = Optional.of(dto).map(CustomerSpecificationDTO::products).stream().flatMap(Collection::stream).map(myCustomerProductSpecificationMapper::mapToEntity).collect(Collectors.toList());
         return CustomerSpecification.builder()
-                .customerSpecificationId(dto.id())
+                .customerSpecificationId(UUID.fromString(dto.id()))
                 .specificationName(dto.name())
                 .specificationFor(dto.specificationFor())
                 .createdOn(dto.createdOn())
@@ -59,7 +60,7 @@ public class CustomerSpecificationMapper implements Mapper<CustomerSpecification
         if (isNull(customerSpecification)) {
             return null;
         }
-        return new CustomerSpecificationDTO(customerSpecification.getCustomerSpecificationId(),
+        return new CustomerSpecificationDTO(customerSpecification.getCustomerSpecificationId().toString(),
                 customerSpecification.getSpecificationName(),
                 customerSpecification.getDescription(),
                 customerSpecification.getVersion(),

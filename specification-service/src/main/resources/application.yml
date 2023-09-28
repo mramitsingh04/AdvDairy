@@ -2,7 +2,7 @@ spring:
   main:
     banner-mode: "off"
   application:
-    name: product-service
+    name: specification-service
   h2:
     datasource:
       url: jdbc:h2:mem:testdb
@@ -21,12 +21,13 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    password: root
-    username: root
-    url: jdbc:mysql://localhost:3306/khatabook_db?useSSL=false
-
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: https://example.org
+          predicates:
+            - Path=/red/{segment},/blue/{segment}
   mvc:
     throw-exception-if-no-handler-found: 'true'
   messages:
@@ -40,21 +41,16 @@ management:
         include: '*'
   health:
     sho-details: always
-    group:
-      custom:
-        show-components: always
-        show-details: always
-
-
 graphql:
   servlet:
     mapping: /apis/graphql
 logging:
   level:
+    root: info
     org:
       springframework: info
 server:
-  port: 6600
+  port: 6800
 eureka:
   instance:
     prefer-ip-address: true
@@ -62,3 +58,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+## Product service rout
+

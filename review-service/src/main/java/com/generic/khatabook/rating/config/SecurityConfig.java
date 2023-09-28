@@ -1,4 +1,5 @@
 package com.generic.khatabook.rating.config;
+/*
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,9 @@ public class SecurityConfig {
         return http
 
                 .authorizeHttpRequests(auth -> auth.requestMatchers(antMatcher("/hello-world/**"),
-                        antMatcher("/hello/**")).permitAll())
+                        antMatcher("/hello/**"),
+                        antMatcher("/actuator/**")
+                ).permitAll())
 
 
                 .authorizeHttpRequests((authz) -> authz
@@ -72,3 +75,4 @@ public class SecurityConfig {
     }
 
 }
+*/

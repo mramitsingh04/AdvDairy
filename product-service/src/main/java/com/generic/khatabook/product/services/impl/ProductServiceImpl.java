@@ -2,6 +2,7 @@ package com.generic.khatabook.product.services.impl;
 
 import com.generic.khatabook.product.exceptions.AppEntity;
 import com.generic.khatabook.product.exceptions.IllegalArgumentException;
+import com.generic.khatabook.product.exceptions.InputValidationException;
 import com.generic.khatabook.product.exceptions.SubEntity;
 import com.generic.khatabook.product.model.Container;
 import com.generic.khatabook.product.model.ProductDTO;
@@ -52,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO updateProduct(final ProductDTO product) {
+        checkAndGetUnitOfMeasurement(product.unitOfMeasurement());
         return myProductMapper.mapToDTO(myProductManagementRepository.save(myProductMapper.mapToEntity(product)));
     }
 
@@ -68,5 +70,11 @@ public class ProductServiceImpl implements ProductService {
             throw new IllegalArgumentException(AppEntity.PRODUCT, SubEntity.UNIT_OF_MEASUREMENT, unitOfMeasurement + " No enum constant found");
         }
         return unitOfMeasurementR;
+    }
+
+    private static void checkAndGetUnitOfMeasurement(final UnitOfMeasurement unitOfMeasurement) {
+        if (unitOfMeasurement == null) {
+            throw new InputValidationException(AppEntity.PRODUCT, SubEntity.UNIT_OF_MEASUREMENT, unitOfMeasurement + " No enum constant found");
+        }
     }
 }
