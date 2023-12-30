@@ -15,7 +15,7 @@ import com.generic.khatabook.model.CustomerSpecificationUpdatable;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.CustomerSpecificationService;
 import com.generic.khatabook.service.IdGeneratorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -43,27 +44,22 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @RestController
+@RequestMapping("customer-service")
+@RequiredArgsConstructor
 public class CustomerSpecificationController {
 
     private final CustomerSpecificationService myCustomerSpecificationService;
     private final IdGeneratorService myIdGeneratorService;
     private final CustomerService myCustomerService;
 
-    @Autowired
-    public CustomerSpecificationController(final CustomerSpecificationService thatCustomerSpecificationService,
-                                           final IdGeneratorService myIdGeneratorService, CustomerService myCustomerService) {
-        this.myCustomerSpecificationService = thatCustomerSpecificationService;
-        this.myIdGeneratorService = myIdGeneratorService;
-        this.myCustomerService = myCustomerService;
-    }
 
 
-    @GetMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/specifications")
+    @GetMapping(path = "/{khatabookId}/customer/{customerId}/specifications")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/specification")
+    @PostMapping(path = "/{khatabookId}/customer/{customerId}/specification")
     public ResponseEntity<?> create(@PathVariable String khatabookId,
                                     @PathVariable String customerId,
                                     @RequestBody CustomerSpecificationDTO customerSpecificationDTO) {
@@ -96,7 +92,7 @@ public class CustomerSpecificationController {
         final CustomerSpecificationDTO saved = myCustomerSpecificationService.save(customerSpecificationDTO);
 
 
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/khatabook/{khatabookId" + "}/customer" + "/{customerId" + "}/specification" + "/{specificationId}").buildAndExpand(
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{khatabookId" + "}/customer" + "/{customerId" + "}/specification" + "/{specificationId}").buildAndExpand(
                 khatabookId,
                 customerId,
                 saved.id()).toUri()).body(saved);
@@ -114,7 +110,7 @@ public class CustomerSpecificationController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/khatabook/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @GetMapping("/{khatabookId}/customer/{customerId}/specification/{specificationId}")
     public ResponseEntity<CustomerSpecificationDTO> getById(@PathVariable String khatabookId,
                                                             @PathVariable String customerId,
                                                             @PathVariable String specificationId) {
@@ -124,7 +120,7 @@ public class CustomerSpecificationController {
         return ResponseEntity.ok(specificationDTOS.get());
     }
 
-    @DeleteMapping("/khatabook/{khatabookId}/customer/{customerId}/specification")
+    @DeleteMapping("/{khatabookId}/customer/{customerId}/specification")
     public ResponseEntity<?> deleteById(@PathVariable String khatabookId, @PathVariable String customerId) {
         Containers<CustomerSpecificationDTO, CustomerSpecificationUpdatable> specificationDTOS = myCustomerSpecificationService.getCustomerSpecification(
                 khatabookId,
@@ -135,7 +131,7 @@ public class CustomerSpecificationController {
     }
 
 
-    @PutMapping("/khatabook/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @PutMapping("/{khatabookId}/customer/{customerId}/specification/{specificationId}")
     public ResponseEntity<?> updateCustomer(@PathVariable String khatabookId,
                                             @PathVariable String customerId,
                                             @PathVariable String specificationId,
@@ -145,7 +141,7 @@ public class CustomerSpecificationController {
     }
 
 
-    @PatchMapping("/khatabook/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @PatchMapping("/{khatabookId}/customer/{customerId}/specification/{specificationId}")
     public ResponseEntity<?> patchUpdate1(@PathVariable String khatabookId,
                                           @PathVariable String customerId,
                                           @PathVariable String specificationId,

@@ -1,7 +1,7 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.OperatorDTO;
 import com.generic.khatabook.entity.Operator;
+import com.generic.khatabook.model.OperatorDTO;
 import com.generic.khatabook.repository.OperatorRepository;
 import com.generic.khatabook.service.OperatorService;
 import com.generic.khatabook.service.mapper.OperatorMapper;

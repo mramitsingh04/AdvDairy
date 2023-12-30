@@ -1,5 +1,7 @@
 package com.generic.khatabook.service.impl;
 
+import com.generic.khatabook.entity.Customer;
+import com.generic.khatabook.entity.CustomerSpecification;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.DuplicateFoundException;
 import com.generic.khatabook.model.Container;
@@ -7,8 +9,6 @@ import com.generic.khatabook.model.Containers;
 import com.generic.khatabook.model.CustomerDTO;
 import com.generic.khatabook.model.CustomerSpecificationDTO;
 import com.generic.khatabook.model.CustomerSpecificationUpdatable;
-import com.generic.khatabook.entity.Customer;
-import com.generic.khatabook.entity.CustomerSpecification;
 import com.generic.khatabook.repository.CustomerRepository;
 import com.generic.khatabook.repository.CustomerSpecificationRepository;
 import com.generic.khatabook.service.CustomerSpecificationService;
@@ -16,6 +16,8 @@ import com.generic.khatabook.service.mapper.CustomerSpecificationMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 import static java.util.Objects.isNull;
 @Service

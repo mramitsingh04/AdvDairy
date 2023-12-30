@@ -26,7 +26,7 @@ import java.util.UUID;
 public class CustomerSpecification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID customerSpecificationId;
+    private String customerSpecificationId;
     private String specificationName;
     private String description;
     @Version

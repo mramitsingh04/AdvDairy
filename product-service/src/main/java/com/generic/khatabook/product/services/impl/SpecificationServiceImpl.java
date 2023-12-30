@@ -1,5 +1,6 @@
 package com.generic.khatabook.product.services.impl;
 
+import com.generic.khatabook.product.model.SpecificationDTO;
 import com.generic.khatabook.product.repository.SpecificationRepository;
 import com.generic.khatabook.product.services.SpecificationService;
 import com.generic.khatabook.product.services.mapper.SpecificationMapper;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import com.generic.khatabook.product.model.*;
 @Service
 public class SpecificationServiceImpl implements SpecificationService {
 

@@ -45,11 +45,10 @@ graphql:
     mapping: /apis/graphql
 logging:
   level:
+    root: info
     org:
-      hibernate: debug
-      springframework:
-        web: debug
-    root: warn
+      springframework: info
+      hibernate: trace
 
 server:
   port: 8600

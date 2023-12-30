@@ -44,7 +44,7 @@ class ProductManagementControllerTest extends AbstractTest {
 
     @Test
     void testGetProducts() throws Exception {
-        String path = "/products";
+        String path = "/product-service/products";
         List<ProductDTO> listOfProducts = getProductDTOS();
         when(myProductService.findAllProducts()).thenReturn(listOfProducts);
 
@@ -64,7 +64,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testGetProduct() throws Exception {
         String prodId = "1";
-        String path = "/product/%s".formatted(prodId);
+        String path = "/product-service/%s".formatted(prodId);
         Container<ProductDTO, ProductUpdatable> prods = getProductDTOS().stream().filter(x -> x.id().equals(prodId)).map(x -> new Container(x, x.updatable())).findFirst().orElse(null);
         when(myProductService.findProductById(prodId)).thenReturn(prods);
 
@@ -75,7 +75,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testGetNonExistingProductById() throws Exception {
         String prodId = "1";
-        String path = "/product/%s".formatted(prodId);
+        String path = "/product-service/%s".formatted(prodId);
         when(myProductService.findProductById(prodId)).thenReturn(Container.empty());
         mockMvc.perform(get(path).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
@@ -83,7 +83,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testSearchByProductName() throws Exception {
         String prodName = "milk";
-        String path = "/product/?name=%s".formatted(prodName);
+        String path = "/product-service/?name=%s".formatted(prodName);
         List<ProductDTO> listOfProducts = getProductDTOS();
         final List<ProductDTO> prods = listOfProducts.stream().filter(x -> x.name().equalsIgnoreCase(prodName)).collect(Collectors.toList());
         when(myProductService.findProductByName(prodName)).thenReturn(prods);
@@ -93,7 +93,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testSearchByProductUnitOfMeasurement() throws Exception {
         String prodUnitOfMeasurement = "item";
-        String path = "/product/?unitOfMeasurement=%s".formatted(prodUnitOfMeasurement);
+        String path = "/product-service/?unitOfMeasurement=%s".formatted(prodUnitOfMeasurement);
         List<ProductDTO> listOfProducts = getProductDTOS();
         final List<ProductDTO> prods =
                 listOfProducts.stream().filter(x -> x.unitOfMeasurement().equals(UnitOfMeasurement.valueOf(prodUnitOfMeasurement.toUpperCase()))).collect(Collectors.toList());
@@ -104,7 +104,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testSearchNonExistingProductUnitOfMeasurement() throws Exception {
         String prodUnitOfMeasurement = "ites";
-        String path = "/product/?unitOfMeasurement=%s".formatted(prodUnitOfMeasurement);
+        String path = "/product-service/?unitOfMeasurement=%s".formatted(prodUnitOfMeasurement);
         List<ProductDTO> listOfProducts = getProductDTOS();
         final List<ProductDTO> prods =
                 listOfProducts.stream().filter(x -> x.unitOfMeasurement().equals(prodUnitOfMeasurement)).collect(Collectors.toList());
@@ -115,7 +115,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testGetByProductNameNotFound() throws Exception {
         String prodName = "milksake";
-        String path = "/product/?name=%s".formatted(prodName);
+        String path = "/product-service/?name=%s".formatted(prodName);
         when(myProductService.findProductByName(prodName)).thenReturn(null);
         mockMvc.perform(get(path).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
@@ -124,13 +124,13 @@ class ProductManagementControllerTest extends AbstractTest {
     void testGetAllProductQueryNotPassed() throws Exception {
         List<ProductDTO> listOfProducts = getProductDTOS();
         when(myProductService.findAllProducts()).thenReturn(listOfProducts);
-        mockMvc.perform(get("/product/").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$.products").exists()).andExpect(jsonPath("$.products[*].id").isNotEmpty()).andExpect(jsonPath("$.products[*].name").isNotEmpty()).andExpect(jsonPath("$.products[*].quantity").isNotEmpty()).andExpect(jsonPath("$.products[*].price").isNotEmpty()).andExpect(jsonPath("$.products[*].unitOfMeasurement").isNotEmpty()).andExpect(jsonPath("$.products[*].rating").isNotEmpty());
+        mockMvc.perform(get("/product-service/").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(jsonPath("$.products").exists()).andExpect(jsonPath("$.products[*].id").isNotEmpty()).andExpect(jsonPath("$.products[*].name").isNotEmpty()).andExpect(jsonPath("$.products[*].quantity").isNotEmpty()).andExpect(jsonPath("$.products[*].price").isNotEmpty()).andExpect(jsonPath("$.products[*].unitOfMeasurement").isNotEmpty()).andExpect(jsonPath("$.products[*].rating").isNotEmpty());
     }
 
     @Test
     void testCreateProduct() throws Exception {
         String prodId = "1";
-        String path = "/product";
+        String path = "/product-service/";
         ProductDTO milkProd = getProductDTOS().get(0);
         when(myProductService.saveProduct(milkProd)).thenReturn(milkProd);
         mockMvc.perform(post(path).contentType(MediaType.APPLICATION_JSON).content(mapToJson(milkProd))).andExpect(status().isCreated());
@@ -140,13 +140,13 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testCreateProducts() throws Exception {
 
-        mockMvc.perform(post("/products").contentType(MediaType.APPLICATION_JSON).content(mapToJson(getProductDTOS()))).andExpect(status().isAccepted());
+        mockMvc.perform(post("/product-service/products").contentType(MediaType.APPLICATION_JSON).content(mapToJson(getProductDTOS()))).andExpect(status().isAccepted());
     }
 
     @Test
     void testDeleteProductById() throws Exception {
         String prodId = "1";
-        String path = "/product/%s".formatted(prodId);
+        String path = "/product-service/%s".formatted(prodId);
         List<ProductDTO> listOfProducts = getProductDTOS();
         Container<ProductDTO, ProductUpdatable> prods = listOfProducts.stream().filter(x -> x.id().equals(prodId)).map(x -> new Container(x, x.updatable())).findFirst().orElse(null);
         when(myProductService.findProductById(prodId)).thenReturn(prods);
@@ -157,7 +157,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testDeleteNotExistingProductById() throws Exception {
         String prodId = "113";
-        String path = "/product/%s".formatted(prodId);
+        String path = "/product-service/%s".formatted(prodId);
         List<ProductDTO> listOfProducts = getProductDTOS();
         Container<ProductDTO, ProductUpdatable> prods =
                 listOfProducts.stream().filter(x -> x.id().equals(prodId)).map(x -> new Container(x, x.updatable())).findFirst().orElse(Container.empty());
@@ -169,7 +169,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testUpdateNotExistProduct() throws Exception {
         String prodId = "113";
-        String path = "/product/%s".formatted(prodId);
+        String path = "/product-service/%s".formatted(prodId);
         ProductDTO milkProd = new ProductDTO("1", "Milk",
                 1, BigDecimal.valueOf(50),
                 UnitOfMeasurement.LITTER, 4.0f);
@@ -183,7 +183,7 @@ class ProductManagementControllerTest extends AbstractTest {
     @Test
     void testUpdateProduct() throws Exception {
         String prodId = "1";
-        String path = "/product/%s".formatted(prodId);
+        String path = "/product-service/%s".formatted(prodId);
         ProductDTO milkProd = new ProductDTO("1", "Milk",
                 1, BigDecimal.valueOf(50),
                 UnitOfMeasurement.LITTER, 4.0f);
@@ -208,6 +208,6 @@ class ProductManagementControllerTest extends AbstractTest {
 
     @Test
     void testCreateProductsWithNullPayload() throws Exception {
-        mockMvc.perform(post("/products").contentType(MediaType.APPLICATION_JSON).content("[]")).andExpect(status().isNoContent());
+        mockMvc.perform(post("/product-service/products").contentType(MediaType.APPLICATION_JSON).content("[]")).andExpect(status().isNoContent());
     }
 }

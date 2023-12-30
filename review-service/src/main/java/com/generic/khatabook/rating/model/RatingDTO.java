@@ -1,5 +1,6 @@
 package com.generic.khatabook.rating.model;
 
-public record RatingDTO(String id, String customerId, String productId, float rating, String description) {
+public record RatingDTO(String id, String fromCustomerId, RatingEntityType entityType, String entityId, float rating,
+                        String description) {
 
 }

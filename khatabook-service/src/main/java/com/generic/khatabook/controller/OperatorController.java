@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 @RestController
+@RequestMapping(path = "khatabook-service")
 public class OperatorController {
 
     private static final String NULL = null;
@@ -36,12 +38,12 @@ public class OperatorController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping("/operator/operators")
+    @GetMapping("/operators")
     public ResponseEntity<List<OperatorDTO>> operatorList() {
         return ok(myOperatorService.getAll());
     }
 
-    @PostMapping("/operator/operator")
+    @PostMapping("/operator")
     public ResponseEntity<OperatorDTO> createOperator(@Valid @RequestBody OperatorDTO operator) {
 
 //        val operatorRequest = operator.copyOf(myIdGeneratorService.generateId());
@@ -55,20 +57,20 @@ public class OperatorController {
     }
 
 
-    @GetMapping("/operator/operator/operatorId/{operatorId}")
+    @GetMapping("/operator/operatorId/{operatorId}")
     public ResponseEntity<OperatorDTO> getById(@PathVariable String operatorId) {
         return ok(myOperatorService.getByOperatorId(operatorId));
     }
 
 
-    @DeleteMapping("/operator/operator/operatorId/{operatorId}")
+    @DeleteMapping("/operator/operatorId/{operatorId}")
     public ResponseEntity deleteById(@PathVariable String operatorId) {
         myOperatorService.delete(operatorId);
         return ok().build();
     }
 
 
-    @PutMapping("/operator/operator")
+    @PutMapping("/operator")
     public ResponseEntity<OperatorDTO> updateOperator(@RequestBody OperatorDTO OperatorDTO) {
         return ok(myOperatorService.update(OperatorDTO));
     }

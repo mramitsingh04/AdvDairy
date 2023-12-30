@@ -11,3 +11,10 @@ spring:
     name: dairy-app-config-data
 server:
   port: '8012'
+
+logging:
+  level:
+    root: info
+    org:
+      springframework: info
+      hibernate: trace

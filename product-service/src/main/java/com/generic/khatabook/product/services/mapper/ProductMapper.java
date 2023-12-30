@@ -1,11 +1,11 @@
 package com.generic.khatabook.product.services.mapper;
 
+import com.generic.khatabook.product.entity.Product;
 import com.generic.khatabook.product.model.Container;
 import com.generic.khatabook.product.model.Mapper;
 import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 import com.generic.khatabook.product.model.UnitOfMeasurement;
-import com.generic.khatabook.product.entity.Product;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

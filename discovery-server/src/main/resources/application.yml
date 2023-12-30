@@ -16,3 +16,10 @@ eureka:
 
 server:
   port: 8761
+
+logging:
+  level:
+    root: info
+    org:
+      springframework: info
+      hibernate: trace

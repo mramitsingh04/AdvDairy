@@ -10,8 +10,8 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
         <RollingFile name="appLog"
-                     fileName="${APP_LOG_ROOT}/SpringBoot2App/application.log"
-                     filePattern="${APP_LOG_ROOT}/SpringBoot2App/application-%d{yyyy-MM-dd}-%i.log">
+                     fileName="${APP_LOG_ROOT}/SpringBoot2App/application-khatabook.log"
+                     filePattern="${APP_LOG_ROOT}/SpringBoot2App/application-khatabook-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="19500KB"/>

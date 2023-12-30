@@ -1,10 +1,10 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.Product;
-import com.generic.khatabook.model.ProductDTO;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.NotFoundException;
 import com.generic.khatabook.exchanger.ProductClient;
+import com.generic.khatabook.model.Product;
+import com.generic.khatabook.model.ProductDTO;
 import com.generic.khatabook.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

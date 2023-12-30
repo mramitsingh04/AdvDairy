@@ -20,4 +20,6 @@ public interface KhatabookService {
     List<KhatabookDTO> getAll();
 
     KhatabookDTO getKhatabookByKhatabookId(String khatabookId);
+
+    boolean isExist(String khatabookId);
 }

@@ -1,10 +1,10 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.KhatabookDTO;
 import com.generic.khatabook.entity.GenerationDate;
 import com.generic.khatabook.entity.Khatabook;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.NotFoundException;
+import com.generic.khatabook.model.KhatabookDTO;
 import com.generic.khatabook.repository.KhatabookGroupRepository;
 import com.generic.khatabook.repository.KhatabookRepository;
 import com.generic.khatabook.service.KhatabookService;
@@ -91,5 +91,11 @@ public class KhatabookServiceImpl implements KhatabookService {
         final Khatabook myKhatabook = myKhatabookRepository.findByKhatabookId(khatabookId).stream().findFirst().orElse(
                 null);
         return myKhatabookMapper.mapToDTO(myKhatabook);
+    }
+
+    @Override
+    public boolean isExist(final String khatabookId) {
+
+        return myKhatabookRepository.findByKhatabookId(khatabookId).isPresent();
     }
 }

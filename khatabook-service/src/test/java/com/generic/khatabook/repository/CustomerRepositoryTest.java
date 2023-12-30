@@ -81,14 +81,14 @@ class CustomerRepositoryTest {
         assertEquals(2, products.size());
         CustomerProduct milkProduct = products.get(0);
         assertNotNull(milkProduct);
-        assertNotNull(milkProduct.getId());
+        assertNotNull(milkProduct.getCusProdId());
         assertEquals(MILK, milkProduct.getProductId());
         assertEquals(MILK, milkProduct.getProductName());
 
 
         CustomerProduct sugarProduct = products.get(1);
         assertNotNull(sugarProduct);
-        assertNotNull(sugarProduct.getId());
+        assertNotNull(sugarProduct.getCusProdId());
         assertEquals(SUGAR, sugarProduct.getProductId());
         assertEquals(SUGAR, sugarProduct.getProductName());
 
@@ -111,14 +111,14 @@ class CustomerRepositoryTest {
         assertEquals(2, products.size());
         CustomerProduct milkProduct = products.get(0);
         assertNotNull(milkProduct);
-        assertNotNull(milkProduct.getId());
+        assertNotNull(milkProduct.getCusProdId());
         assertEquals(MILK, milkProduct.getProductId());
         assertEquals(MILK, milkProduct.getProductName());
 
 
         CustomerProduct sugarProduct = products.get(1);
         assertNotNull(sugarProduct);
-        assertNotNull(sugarProduct.getId());
+        assertNotNull(sugarProduct.getCusProdId());
         assertEquals(SUGAR, sugarProduct.getProductId());
         assertEquals(SUGAR, sugarProduct.getProductName());
 

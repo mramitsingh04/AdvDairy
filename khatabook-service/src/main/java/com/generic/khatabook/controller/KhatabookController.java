@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 @RestController
+@RequestMapping(path = "khatabook-service")
 public class KhatabookController {
 
     private static final String NULL = null;
@@ -33,12 +35,12 @@ public class KhatabookController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping("/khatabook/khatabooks")
+    @GetMapping("/khatabooks")
     public List<KhatabookDTO> khatabookList() {
         return myKhatabookService.getAll();
     }
 
-    @PostMapping("/khatabook/khatabook")
+    @PostMapping("/")
     public ResponseEntity<KhatabookDTO> createKhatabook(@Valid @RequestBody KhatabookDTO khatabook) {
 
         val khatabookRequest = khatabook.copyOf(myIdGeneratorService.generateId());
@@ -51,29 +53,34 @@ public class KhatabookController {
         }
     }
 
-    @GetMapping("/khatabook/khatabook/msisdn/{msisdn}")
+    @GetMapping("/msisdn/{msisdn}")
     public KhatabookDTO deleteByMsisdn(@PathVariable String msisdn) {
         return myKhatabookService.delete(NULL, msisdn);
     }
 
-    @GetMapping("/khatabook/khatabook/khatabookId/{khatabookId}")
+    @GetMapping("/khatabookId/{khatabookId}")
     public KhatabookDTO getById(@PathVariable String khatabookId) {
         return myKhatabookService.getKhatabookByKhatabookId(khatabookId);
     }
 
+    @GetMapping("/khatabookId/{khatabookId}/exist")
+    public boolean isExist(@PathVariable String khatabookId) {
+        return myKhatabookService.isExist(khatabookId);
+    }
 
-    @DeleteMapping("/khatabook/khatabook/khatabookId/{khatabookId}")
+
+    @DeleteMapping("/khatabookId/{khatabookId}")
     public KhatabookDTO deleteById(@PathVariable String khatabookId) {
         return myKhatabookService.delete(khatabookId, NULL);
     }
 
-    @DeleteMapping("/khatabook/khatabook/")
+    @DeleteMapping("/")
     public KhatabookDTO deleteByLastIndex() {
         return myKhatabookService.delete(NULL, NULL);
     }
 
 
-    @PutMapping("/khatabook/khatabook")
+    @PutMapping("/")
     public KhatabookDTO updateKhatabook(@RequestBody KhatabookDTO khatabookDTO) {
         return myKhatabookService.update(khatabookDTO);
     }

@@ -1,8 +1,8 @@
 package com.generic.khatabook.rating.services.impl;
 
+import com.generic.khatabook.rating.entity.Rating;
 import com.generic.khatabook.rating.model.ProductDTO;
 import com.generic.khatabook.rating.model.RatingDTO;
-import com.generic.khatabook.rating.entity.Rating;
 import com.generic.khatabook.rating.repository.RatingRepository;
 import com.generic.khatabook.rating.services.RatingService;
 import com.generic.khatabook.rating.services.mapper.RatingMapper;
@@ -61,7 +61,7 @@ public class RatingServiceImpl implements RatingService {
     public RatingDTO updateRating(final ProductDTO productDetails, final RatingDTO customerUpdateRating) {
 
         if (Objects.nonNull(productDetails)) {
-            Rating productRating = myRatingRepository.findByCustomerIdAndProductId(customerUpdateRating.customerId(), customerUpdateRating.productId());
+            Rating productRating = myRatingRepository.findByCustomerIdAndProductId(customerUpdateRating.fromCustomerId(), customerUpdateRating.entityId());
 
             if (Objects.nonNull(productRating)) {
                 productRating.setDescription(customerUpdateRating.description());

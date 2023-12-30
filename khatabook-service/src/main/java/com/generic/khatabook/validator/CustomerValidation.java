@@ -1,11 +1,11 @@
 package com.generic.khatabook.validator;
 
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.Product;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.NotFoundException;
 import com.generic.khatabook.exchanger.ProductClient;
 import com.generic.khatabook.exchanger.SpecificationClient;
+import com.generic.khatabook.model.CustomerDTO;
+import com.generic.khatabook.model.Product;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.KhatabookService;
 import lombok.val;

@@ -1,10 +1,10 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.*;
 import com.generic.khatabook.entity.Amount;
 import com.generic.khatabook.entity.CustomerPayment;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.InvalidArgumentValueException;
+import com.generic.khatabook.model.*;
 import com.generic.khatabook.repository.PaymentRepository;
 import com.generic.khatabook.service.PaymentService;
 import com.generic.khatabook.service.ProductService;

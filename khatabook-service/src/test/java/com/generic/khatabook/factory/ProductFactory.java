@@ -1,9 +1,9 @@
 package com.generic.khatabook.factory;
 
+import com.generic.khatabook.entity.CustomerProduct;
 import com.generic.khatabook.model.Product;
 import com.generic.khatabook.model.ProductDTO;
 import com.generic.khatabook.model.UnitOfMeasurement;
-import com.generic.khatabook.entity.CustomerProduct;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

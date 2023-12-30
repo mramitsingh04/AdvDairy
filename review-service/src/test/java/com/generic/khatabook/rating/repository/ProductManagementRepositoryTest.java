@@ -13,7 +13,7 @@ class RatingRepositoryTest1{
 //    @Test
 //    void saveProductWithValidInput() {
 //        Rating milkProduct = repository.save(Rating.builder()
-//                .productId("Milk")
+//                .entityId("Milk")
 //                .customerId("Customer-01")
 //                .rating(3.1f)
 //                .build());

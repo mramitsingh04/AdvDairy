@@ -1,7 +1,7 @@
 package com.generic.khatabook.rating.services.mapper;
 
-import com.generic.khatabook.rating.model.CommentDTO;
 import com.generic.khatabook.rating.entity.Comment;
+import com.generic.khatabook.rating.model.CommentDTO;
 import com.generic.khatabook.rating.model.Container;
 import com.generic.khatabook.rating.model.Mapper;
 import org.springframework.stereotype.Component;

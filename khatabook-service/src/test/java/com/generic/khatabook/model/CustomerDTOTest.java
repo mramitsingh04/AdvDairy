@@ -1,6 +1,5 @@
 package com.generic.khatabook.model;
 
-import com.generic.khatabook.model.CustomerDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

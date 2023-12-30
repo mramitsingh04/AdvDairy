@@ -10,7 +10,9 @@ import org.springframework.dao.InvalidDataAccessResourceUsageException;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 class ProductRepositoryTest {

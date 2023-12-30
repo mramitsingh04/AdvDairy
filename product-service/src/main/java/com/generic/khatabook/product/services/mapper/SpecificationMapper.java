@@ -1,10 +1,10 @@
 package com.generic.khatabook.product.services.mapper;
 
+import com.generic.khatabook.product.entity.Specification;
 import com.generic.khatabook.product.model.Container;
 import com.generic.khatabook.product.model.Mapper;
-import com.generic.khatabook.product.entity.Specification;
+import com.generic.khatabook.product.model.SpecificationDTO;
 import org.springframework.stereotype.Component;
-import com.generic.khatabook.product.model.*;
 @Component
 public class SpecificationMapper implements Mapper<Specification, SpecificationDTO, Void> {
     @Override

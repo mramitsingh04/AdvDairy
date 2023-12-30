@@ -1,17 +1,17 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.Container;
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.CustomerUpdatable;
-import com.generic.khatabook.model.Product;
-import com.generic.khatabook.model.ProductDTO;
-import com.generic.khatabook.model.UnitOfMeasurement;
 import com.generic.khatabook.entity.Customer;
 import com.generic.khatabook.entity.CustomerProduct;
 import com.generic.khatabook.entity.CustomerProductSpecification;
 import com.generic.khatabook.entity.CustomerSpecification;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.NotFoundException;
+import com.generic.khatabook.model.Container;
+import com.generic.khatabook.model.CustomerDTO;
+import com.generic.khatabook.model.CustomerUpdatable;
+import com.generic.khatabook.model.Product;
+import com.generic.khatabook.model.ProductDTO;
+import com.generic.khatabook.model.UnitOfMeasurement;
 import com.generic.khatabook.repository.CustomerRepository;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.ProductService;
@@ -57,7 +57,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Container<CustomerDTO, CustomerUpdatable> getByCustomerId(final String customerId) {
-        Customer customer = myCustomerRepository.findById(customerId).orElse(Customer.builder().build());
+        Customer customer =
+                myCustomerRepository.findById(customerId).orElse(Customer.builder().build());
         for (CustomerProduct customerProduct : customer.getProducts()) {
             ProductDTO product = myProductService.getCustomerProduct(Product.of(customerProduct.getProductId()));
             customerProduct.setProductName(product.name());
@@ -107,7 +108,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO update(CustomerDTO customerDTO) {
 
-        final Customer existingEntity = myCustomerRepository.findById(customerDTO.customerId()).orElse(null);
+        final Customer existingEntity =
+                myCustomerRepository.findById(customerDTO.customerId()).orElse(null);
         final Customer customerEntity = myCustomerMapper.mapToEntity(customerDTO);
 
 

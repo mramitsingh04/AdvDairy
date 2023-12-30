@@ -1,12 +1,12 @@
 package com.generic.khatabook.controller;
 
+import com.generic.khatabook.factory.ProductFactory;
 import com.generic.khatabook.model.Container;
 import com.generic.khatabook.model.CustomerDTO;
 import com.generic.khatabook.model.CustomerUpdatable;
 import com.generic.khatabook.model.KhatabookDTO;
 import com.generic.khatabook.model.KhatabookDetails;
 import com.generic.khatabook.model.Product;
-import com.generic.khatabook.factory.ProductFactory;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.CustomerSpecificationService;
 import com.generic.khatabook.service.KhatabookService;

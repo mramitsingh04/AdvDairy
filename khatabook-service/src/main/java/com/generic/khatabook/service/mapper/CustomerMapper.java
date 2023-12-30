@@ -1,20 +1,19 @@
 package com.generic.khatabook.service.mapper;
 
+import com.generic.khatabook.entity.Customer;
+import com.generic.khatabook.entity.CustomerProduct;
+import com.generic.khatabook.entity.CustomerSpecification;
 import com.generic.khatabook.model.Container;
 import com.generic.khatabook.model.CustomerDTO;
 import com.generic.khatabook.model.CustomerSpecificationDTO;
 import com.generic.khatabook.model.CustomerUpdatable;
 import com.generic.khatabook.model.Mapper;
 import com.generic.khatabook.model.Product;
-import com.generic.khatabook.entity.Customer;
-import com.generic.khatabook.entity.CustomerProduct;
-import com.generic.khatabook.entity.CustomerSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -36,7 +35,7 @@ public class CustomerMapper implements Mapper<Customer, CustomerDTO, CustomerUpd
         }
         return Customer.builder()
                 .customerSpecification(specification)
-                .customerId(UUID.fromString(myCustomer.customerId()))
+//                .customerId(myCustomer.customerId())
                 .khatabookId(myCustomer.khatabookId())
                 .firstName(myCustomer.firstName())
                 .lastName(myCustomer.lastName())

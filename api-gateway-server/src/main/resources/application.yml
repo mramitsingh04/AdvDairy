@@ -20,12 +20,20 @@ spring:
       routes[2]:
         id: discovery-service
         uri: http://localhost:8761
-        predicates[0]: Path=/eureka/web
+        predicates[0]: Path=/discovery-service/**
         filter[0]: SetPath=/
       routes[3]:
         id: discovery-service-static
         uri: http://localhost:8761
         predicates[0]: Path=/eureka/**
+      routes[4]:
+        id: khatabook-service
+        uri: lb://khatabook-service
+        predicates[0]: Path=/khatabook-service/**
+      routes[5]:
+        id: customer-service
+        uri: lb://customer-service
+        predicates[0]: Path=/customer-service/**
 
 management:
   endpoints:
@@ -39,7 +47,7 @@ logging:
     org:
       springframework:
         cloud:
-          gateway: TRACE
+          gateway: debug
     reactor:
       netty: INFO
 

@@ -1,13 +1,13 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.CustomerSpecificationDTO;
-import com.generic.khatabook.model.Product;
 import com.generic.khatabook.entity.Customer;
 import com.generic.khatabook.entity.CustomerProduct;
 import com.generic.khatabook.entity.CustomerSpecification;
 import com.generic.khatabook.factory.CustomerSpecificationFactory;
 import com.generic.khatabook.factory.ProductFactory;
+import com.generic.khatabook.model.CustomerDTO;
+import com.generic.khatabook.model.CustomerSpecificationDTO;
+import com.generic.khatabook.model.Product;
 import com.generic.khatabook.repository.CustomerRepository;
 import com.generic.khatabook.service.ProductService;
 import com.generic.khatabook.service.mapper.CustomerMapper;
@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.UUID.fromString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,12 +55,13 @@ class CustomerServiceImplTest {
     void setUp() {
 
         List<CustomerProduct> listOfProduct = new ArrayList<>();
-        listOfProduct.add(CustomerProduct.builder().Id(1L).productId("milk").productName("milk").build());
-        listOfProduct.add(CustomerProduct.builder().Id(2L).productId("room").productName("room").build());
+        listOfProduct.add(CustomerProduct.builder().cusProdId(fromString("1")).productId("milk").productName("milk").build());
+        listOfProduct.add(CustomerProduct.builder().cusProdId(fromString("2")).productId("room").productName("room").build());
         CustomerSpecification customerSpecification = CustomerSpecificationFactory.getCustomerSpecification();
 
 
-        customer = Customer.builder().customerId("CUS01").khatabookId("Khatabook01").firstName("Amit").lastName("Singh").createdOn(LocalDateTime.now()).products(listOfProduct).customerSpecification(customerSpecification).build();
+        customer = Customer.builder().customerId("CUS01").khatabookId("Khatabook01").firstName("Amit").lastName(
+                "Singh").createdOn(LocalDateTime.now()).products(listOfProduct).customerSpecification(customerSpecification).build();
 
 
     }
@@ -83,7 +85,8 @@ class CustomerServiceImplTest {
 
         List<CustomerProduct> listOfEntityProduct = ProductFactory.getCustomerProductsEntity();
 
-        Customer customerEntity = Customer.builder().customerId("CUS01").khatabookId("Khatabook01").firstName("Amit").lastName("Singh").createdOn(LocalDateTime.now()).products(listOfEntityProduct).customerSpecification(CustomerSpecification.builder().customerSpecificationId("CS01").specificationName("Test").specificationFor("LocalProduct").build()).build();
+        Customer customerEntity =
+                Customer.builder().customerId("CUS01").khatabookId("Khatabook01").firstName("Amit").lastName("Singh").createdOn(LocalDateTime.now()).products(listOfEntityProduct).customerSpecification(CustomerSpecification.builder().customerSpecificationId("CS01").specificationName("Test").specificationFor("LocalProduct").build()).build();
         given(customerMapper.mapToEntity(updateCustomerDTO)).willReturn(customerEntity);
 
 

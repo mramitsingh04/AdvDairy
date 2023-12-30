@@ -1,5 +1,9 @@
 package com.generic.khatabook.controller;
 
+import com.generic.khatabook.exceptions.AppEntity;
+import com.generic.khatabook.exceptions.InvalidArgumentException;
+import com.generic.khatabook.exceptions.InvalidArgumentValueException;
+import com.generic.khatabook.exceptions.NotFoundException;
 import com.generic.khatabook.model.CustomerDTO;
 import com.generic.khatabook.model.CustomerSpecificationDTO;
 import com.generic.khatabook.model.CustomerUpdatable;
@@ -8,31 +12,19 @@ import com.generic.khatabook.model.KhatabookDetailsView;
 import com.generic.khatabook.model.KhatabookPaymentSummaryView;
 import com.generic.khatabook.model.PaymentDTO;
 import com.generic.khatabook.model.Product;
-import com.generic.khatabook.exceptions.AppEntity;
-import com.generic.khatabook.exceptions.InvalidArgumentException;
-import com.generic.khatabook.exceptions.InvalidArgumentValueException;
-import com.generic.khatabook.exceptions.NotFoundException;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.CustomerSpecificationService;
 import com.generic.khatabook.service.KhatabookService;
 import com.generic.khatabook.service.PaymentService;
 import com.generic.khatabook.validator.CustomerValidation;
+import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.lang.reflect.Field;
@@ -47,27 +39,20 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("customer-service")
+@RequiredArgsConstructor
 public class CustomerController {
     public static final String ASC_DESC = "asc,desc";
     public static final String DATE_CUSTOMER_PRODUCT = "date,customer,product";
     public static final String SORTING_MSG = "%s is invalid value for sorting, possible value will be (%s).";
-    @Autowired
-    private CustomerService myCustomerService;
 
-    @Autowired
-    private KhatabookService myKhatabookService;
+    private final CustomerService myCustomerService;
+    private final KhatabookService myKhatabookService;
+    private final PaymentService myPaymentService;
+    private final CustomerValidation myCustomerValidation;
+    private final CustomerSpecificationService customerSpecificationService;
 
-    @Autowired
-    private PaymentService myPaymentService;
-
-    @Autowired
-    private CustomerValidation myCustomerValidation;
-
-    @Autowired
-    private CustomerSpecificationService customerSpecificationService;
-
-    @GetMapping(path = "/khatabook/{khatabookId}/customers")
-    @PostMapping
+    @GetMapping(path = "{khatabookId}/customers")
     public ResponseEntity<KhatabookDetails> getKhatabookDetails(@PathVariable String khatabookId) {
 
         val khatabook = myKhatabookService.getKhatabookByKhatabookId(khatabookId);
@@ -82,7 +67,7 @@ public class CustomerController {
         return ResponseEntity.ok(khatabookDetails);
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/customer")
+    @PostMapping(path = "{khatabookId}")
     public ResponseEntity<?> createCustomer(@PathVariable String khatabookId, @RequestBody CustomerDTO customerDTO) {
 
         val khatabook = myKhatabookService.getKhatabookByKhatabookId(khatabookId);
@@ -106,14 +91,15 @@ public class CustomerController {
                 customerDTO.customerId()).toUri()).body(entityModel);
     }
 
-    @GetMapping(path = "/khatabook/{khatabookId}/customer/{customerId}", produces = {"application/json"})
+    @GetMapping(path = "{khatabookId}/{customerId}", produces = {"application/json"})
     public ResponseEntity<?> getCustomerByCustomerId(
             @RequestParam(required = false, defaultValue = "desc") String sorting,
             @RequestParam(required = false, defaultValue = "date") String sortingBy,
             @PathVariable String khatabookId,
             @PathVariable String customerId
 
-    ) {
+    )
+    {
 //amit testing not done
 
         if (nonNull(sorting) && !isSortingPossibleValueValid(sorting)) {
@@ -168,15 +154,7 @@ public class CustomerController {
         return ResponseEntity.ok(entityModel);
     }
 
-    private boolean isSortingByPossibleValueValid(final String sortingBy) {
-        return DATE_CUSTOMER_PRODUCT.contains(sortingBy);
-    }
-
-    private boolean isSortingPossibleValueValid(final String sorting) {
-        return ASC_DESC.contains(sorting);
-    }
-
-    @GetMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}", produces = {"application/hal+json"})
+    @GetMapping(path = "{khatabookId}/msisdn/{msisdn}", produces = {"application/hal+json"})
     public ResponseEntity<?> getCustomerByMsisdn(@PathVariable String khatabookId, @PathVariable String msisdn) {
 
         val khatabook = myKhatabookService.getKhatabookByKhatabookId(khatabookId);
@@ -218,7 +196,15 @@ public class CustomerController {
         return ResponseEntity.ok(entityModel);
     }
 
-    @DeleteMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}")
+    private boolean isSortingPossibleValueValid(final String sorting) {
+        return ASC_DESC.contains(sorting);
+    }
+
+    private boolean isSortingByPossibleValueValid(final String sortingBy) {
+        return DATE_CUSTOMER_PRODUCT.contains(sortingBy);
+    }
+
+    @DeleteMapping(path = "{khatabookId}/msisdn/{msisdn}")
     public ResponseEntity<?> deleteByMsisdn(@PathVariable String msisdn) {
 
         final CustomerDTO customerDetails = myCustomerService.getByMsisdn(msisdn);
@@ -232,7 +218,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerDetails);
     }
 
-    @DeleteMapping(path = "/khatabook/{khatabookId}/customer/{customerId}")
+    @DeleteMapping(path = "{khatabookId}/{customerId}")
     public ResponseEntity<CustomerDTO> deleteByCustomerId(@PathVariable String customerId) {
         final CustomerDTO customerDetails = myCustomerService.getByCustomerId(customerId).get();
         if (isNull(customerDetails)) {
@@ -245,10 +231,11 @@ public class CustomerController {
         return ResponseEntity.ok(customerDetails);
     }
 
-    @PutMapping(path = "/khatabook/{khatabookId}/customer/{customerId}")
+    @PutMapping(path = "{khatabookId}/{customerId}")
     public ResponseEntity<EntityModel<KhatabookDetailsView>> updateCustomer(@PathVariable String khatabookId,
                                                                             @PathVariable String customerId,
-                                                                            @RequestBody CustomerDTO customerDTO) {
+                                                                            @RequestBody CustomerDTO customerDTO)
+    {
 
         final CustomerDTO customerDetails = myCustomerService.getByCustomerId(customerId).get();
         if (isNull(customerDetails)) {
@@ -293,12 +280,13 @@ public class CustomerController {
         return ResponseEntity.ok(entityModel);
     }
 
-    @PatchMapping(path = "/khatabook/{khatabookId}/v1/customer/{customerId}", consumes = "application/json-patch+json")
+    @PatchMapping(path = "{khatabookId}/v1/{customerId}", consumes = "application/json-patch+json")
     public ResponseEntity<?> updatePartialCustomer(
             @RequestParam String version,
             @PathVariable String khatabookId,
             @PathVariable String customerId,
-            @RequestBody Map<String, Object> customerEntities) {
+            @RequestBody Map<String, Object> customerEntities)
+    {
         final CustomerUpdatable customerDetails = myCustomerService.getByCustomerId(customerId).updatable();
         if (isNull(customerDetails)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.CUSTOMER, customerId).get()).build();
@@ -340,20 +328,21 @@ public class CustomerController {
 
     private void updateSubEntityOfCustomerProduct(final CustomerUpdatable customerDetails,
                                                   final Field field,
-                                                  final Object valueToSet) {
+                                                  final Object valueToSet)
+    {
 
         switch (field.getGenericType().getTypeName()) {
-            case "java.util.List<com.generic.khatabook.model.Product>" ->
-                    updateCustomerProductUpdatable(
-                            customerDetails,
-                            (List<LinkedHashMap<String, Object>>) valueToSet);
+            case "java.util.List<com.generic.khatabook.model.Product>" -> updateCustomerProductUpdatable(
+                    customerDetails,
+                    (List<LinkedHashMap<String, Object>>) valueToSet);
             default ->
                     throw new InvalidArgumentException(com.generic.khatabook.exceptions.AppEntity.CUSTOMER, field.getName());
         }
     }
 
     private CustomerUpdatable updateCustomerProductUpdatable(final CustomerUpdatable customerDetails,
-                                                             final List<LinkedHashMap<String, Object>> valueToSet) {
+                                                             final List<LinkedHashMap<String, Object>> valueToSet)
+    {
         List<LinkedHashMap<String, Object>> mapValue = valueToSet;
         for (final LinkedHashMap<String, Object> eachProduct : mapValue) {
 
@@ -377,12 +366,27 @@ public class CustomerController {
         return customerDetails;
     }
 
-    @PatchMapping(path = "/khatabook/{khatabookId}/customer/{customerId}", consumes = "application/json-patch+json")
+    private void setValueInField(final CustomerUpdatable oldProductSpecification,
+                                 final Object valueToSet,
+                                 final Field eachField)
+    {
+        if (eachField.getGenericType().getTypeName().equals("float")) {
+            ReflectionUtils.setField(eachField,
+                    oldProductSpecification,
+                    BigDecimal.valueOf((Double) valueToSet).floatValue());
+        }
+        if (BigDecimal.class.getName().equals(eachField.getType().getName())) {
+            ReflectionUtils.setField(eachField, oldProductSpecification, BigDecimal.valueOf((Double) valueToSet));
+        }
+    }
+
+    @PatchMapping(path = "{khatabookId}/{customerId}", consumes = "application/json-patch+json")
     public ResponseEntity<?> updatePartialCustomerV2(
             @RequestParam String version,
             @PathVariable String khatabookId,
             @PathVariable String customerId,
-            @RequestBody CustomerDTO customerEntities) {
+            @RequestBody CustomerDTO customerEntities)
+    {
         final CustomerUpdatable customerDetails = myCustomerService.getByCustomerId(customerId).updatable();
         if (isNull(customerDetails)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.CUSTOMER, customerId).get()).build();
@@ -403,18 +407,5 @@ public class CustomerController {
         final CustomerDTO updateCustomer = myCustomerService.update(customerEntities);
 
         return ResponseEntity.ok(updateCustomer);
-    }
-
-    private void setValueInField(final CustomerUpdatable oldProductSpecification,
-                                 final Object valueToSet,
-                                 final Field eachField) {
-        if (eachField.getGenericType().getTypeName().equals("float")) {
-            ReflectionUtils.setField(eachField,
-                    oldProductSpecification,
-                    BigDecimal.valueOf((Double) valueToSet).floatValue());
-        }
-        if (BigDecimal.class.getName().equals(eachField.getType().getName())) {
-            ReflectionUtils.setField(eachField, oldProductSpecification, BigDecimal.valueOf((Double) valueToSet));
-        }
     }
 }

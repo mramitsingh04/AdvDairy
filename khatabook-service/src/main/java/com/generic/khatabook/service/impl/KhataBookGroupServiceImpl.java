@@ -1,7 +1,7 @@
 package com.generic.khatabook.service.impl;
 
-import com.generic.khatabook.model.KhatabookGroupDTO;
 import com.generic.khatabook.entity.KhatabookGroup;
+import com.generic.khatabook.model.KhatabookGroupDTO;
 import com.generic.khatabook.repository.KhatabookGroupRepository;
 import com.generic.khatabook.service.KhataBookGroupService;
 import com.generic.khatabook.service.mapper.KhatabookGroupMapper;

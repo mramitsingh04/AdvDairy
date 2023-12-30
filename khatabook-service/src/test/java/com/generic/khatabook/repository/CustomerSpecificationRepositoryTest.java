@@ -13,7 +13,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import static java.util.UUID.fromString;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
@@ -84,7 +86,8 @@ class CustomerSpecificationRepositoryTest {
         Customer savedCustomer = customerRepository.save(customer);
 
 
-        CustomerSpecification custSpec = customerSpecificationRepository.findById(save.getCustomerSpecificationId()).orElse(null);
+        CustomerSpecification custSpec =
+                customerSpecificationRepository.findById(save.getCustomerSpecificationId().toString()).orElse(null);
         assertNotNull(custSpec);
 //        CustomerSpecification customerSpecification1 = custSpec.get(0);
 //        assertEquals(customerSpecification1.getCustomer().getCustomerId(), customerSpecification.getCustomer().getCustomerId());

@@ -45,8 +45,10 @@ graphql:
     mapping: /apis/graphql
 logging:
   level:
+    root: info
     org:
       springframework: info
+      hibernate: trace
 server:
   port: 6300
 eureka:

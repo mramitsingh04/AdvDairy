@@ -1,7 +1,11 @@
 package com.generic.khatabook.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,7 +23,7 @@ import java.util.UUID;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID customerId;
+    private String customerId;
     private String khatabookId;
     private String msisdn;
     private String firstName;

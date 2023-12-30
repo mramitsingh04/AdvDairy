@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
+@RequestMapping(path = "khatabook-service")
 public class KhatabookGroupController {
 
     private static final String NULL = null;
@@ -32,12 +34,12 @@ public class KhatabookGroupController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping("/khatabook/groups")
+    @GetMapping("/groups")
     public ResponseEntity<List<KhatabookGroupDTO>> groups() {
         return ok(khataBookGroupService.getAll());
     }
 
-    @PostMapping("/khatabook/group")
+    @PostMapping("/group")
     public ResponseEntity<KhatabookGroupDTO> create(@Valid @RequestBody KhatabookGroupDTO groupDTO) {
 
 //        val operatorRequest = groupDTO.copyOf(myIdGeneratorService.generateId());
@@ -51,20 +53,20 @@ public class KhatabookGroupController {
     }
 
 
-    @GetMapping("/khatabook/group/groupId/{groupId}")
+    @GetMapping("/group/groupId/{groupId}")
     public ResponseEntity<KhatabookGroupDTO> getById(@PathVariable String groupId) {
         return ok(khataBookGroupService.get(groupId));
     }
 
 
-    @DeleteMapping("/khatabook/group/groupId/{groupId}")
+    @DeleteMapping("/group/groupId/{groupId}")
     public ResponseEntity deleteById(@PathVariable String groupId) {
         khataBookGroupService.delete(groupId);
         return ok().build();
     }
 
 
-    @PutMapping("/khatabook/group")
+    @PutMapping("/group")
     public ResponseEntity<KhatabookGroupDTO> update(@RequestBody KhatabookGroupDTO KhatabookGroupDTO) {
         return ok(khataBookGroupService.update(KhatabookGroupDTO));
     }
