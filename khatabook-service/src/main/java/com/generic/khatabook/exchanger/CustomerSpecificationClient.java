@@ -8,7 +8,7 @@ import org.springframework.web.service.annotation.HttpExchange;
 
 @HttpExchange
 public interface CustomerSpecificationClient {
-    @GetExchange("/khatabook/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @GetExchange("/{khatabookId}/{customerId}/specification/{specificationId}")
     public ResponseEntity<CustomerSpecificationDTO> getById(@PathVariable String khatabookId,
                                                             @PathVariable String customerId,
                                                             @PathVariable String specificationId);

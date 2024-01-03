@@ -14,9 +14,9 @@ import java.util.Objects;
 @Component
 public class RatingMapper implements Mapper<Rating, RatingDTO, Void> {
     public Rating mapToEntity(RatingDTO dto) {
-        return Rating.builder().id(dto.id()).customerId(dto.fromCustomerId()).productId(dto.entityId()).description(
-                        dto.description()).rating(dto.rating())
-                .build();
+        return Rating.builder().id(dto.id()).customerId(dto.customerId())
+                .entityType(dto.entityType().name())
+                .entityId(dto.entityId()).description(dto.description()).rating(dto.rating()).build();
     }
 
     @Override
@@ -32,9 +32,7 @@ public class RatingMapper implements Mapper<Rating, RatingDTO, Void> {
 
     @Override
     public RatingDTO mapToDTO(final Rating rating) {
-        return new RatingDTO(rating.getId(), rating.getCustomerId(), RatingEntityType.valueOf(rating.getEntityType()),
-                rating.getProductId(),
-                rating.getRating(), rating.getDescription());
+        return new RatingDTO(rating.getId(), rating.getCustomerId(), RatingEntityType.valueOf(rating.getEntityType()), rating.getEntityId(), rating.getRating(), rating.getDescription());
     }
 
     public List<Rating> mapToEntities(final List<RatingDTO> products) {

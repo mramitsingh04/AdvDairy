@@ -6,13 +6,21 @@ import com.generic.khatabook.product.model.Mapper;
 import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 import com.generic.khatabook.product.model.UnitOfMeasurement;
+import com.generic.khatabook.product.services.RatingService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
 @Component
+@RequiredArgsConstructor
 public class ProductMapper implements Mapper<Product, ProductDTO, ProductUpdatable> {
+@Autowired
+private RatingService myRatingService;
+
     public Product mapToEntity(ProductDTO dto) {
         return Product.builder().id(dto.id()).name(dto.name()).price(dto.price()).unitOfMeasurement(
                         dto.unitOfMeasurement().getUnitType())
@@ -34,8 +42,9 @@ public class ProductMapper implements Mapper<Product, ProductDTO, ProductUpdatab
 
     @Override
     public ProductDTO mapToDTO(final Product product) {
+
         return new ProductDTO(product.getId(), product.getName(), product.getQuantity(), product.getPrice(),
-                getUnitOfMeasurement(product), 0f);
+                getUnitOfMeasurement(product), myRatingService.fetchProductRating(product.getId()));
     }
 
     private UnitOfMeasurement getUnitOfMeasurement(final Product product) {

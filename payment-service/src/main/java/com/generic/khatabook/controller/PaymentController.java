@@ -19,7 +19,7 @@ public class PaymentController {
     @Autowired
     private PaymentService myPaymentService;
 /*
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/pay")
+    @PostMapping(path = "/{khatabookId}/{customerId}/pay")
     public ResponseEntity<?> gavenToCustomer(@PathVariable String khatabookId, @PathVariable String customerId,
                                              @RequestBody PaymentDTO payment) {
 
@@ -46,7 +46,7 @@ public class PaymentController {
     }*/
 /*
 
-    @PostMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}/pay")
+    @PostMapping(path = "/{khatabookId}/msisdn/{msisdn}/pay")
     public ResponseEntity<?> gavenToCustomerByMsisdn(@PathVariable String khatabookId,
                                                      @PathVariable String msisdn,
                                                      @RequestBody PaymentDTO payment) {
@@ -66,7 +66,7 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/receive")
+    @PostMapping(path = "/{khatabookId}/{customerId}/receive")
     public ResponseEntity<?> receiveFromCustomer(@PathVariable String khatabookId,
                                                  @PathVariable String customerId,
                                                  @RequestBody PaymentDTO payment) {
@@ -84,7 +84,7 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}/receive")
+    @PostMapping(path = "/{khatabookId}/msisdn/{msisdn}/receive")
     public ResponseEntity<?> receiveFromCustomerByMsisdn(@PathVariable String khatabookId,
                                                          @PathVariable String msisdn,
                                                          @RequestBody PaymentDTO payment) {

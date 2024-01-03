@@ -16,7 +16,7 @@ public class PaymentAggregationController {
     private AggregatePaymentService myAggregatePaymentService;
 
 
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/aggregate/all")
+    @PostMapping(path = "/{khatabookId}/{customerId}/aggregate/all")
     public ResponseEntity<?> aggregatedAllPayment(@PathVariable String khatabookId, @PathVariable String customerId, @RequestBody AggregatePaymentDTO payment) {
 
         val khatabook = myKhatabookClient.getKhatabookDetails(khatabookId);
@@ -39,7 +39,7 @@ public class PaymentAggregationController {
 
         return ResponseEntity.ok().build();
     }
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/aggregate")
+    @PostMapping(path = "/{khatabookId}/{customerId}/aggregate")
     public ResponseEntity<?> aggregatedPayment(@PathVariable String khatabookId, @PathVariable String customerId, @RequestBody AggregatePaymentDTO payment) {
 
         val khatabook = myKhatabookClient.getKhatabookByKhatabookId(khatabookId);
@@ -62,7 +62,7 @@ public class PaymentAggregationController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}/aggregate")
+    @PostMapping(path = "/{khatabookId}/msisdn/{msisdn}/aggregate")
     public ResponseEntity<?> aggregatedPaymentByMsisdn(@Validated @PathVariable String khatabookId, @Validated @PathVariable String msisdn, @RequestBody AggregatePaymentDTO payment) {
 
         val khatabook = myKhatabookClient.getKhatabookByKhatabookId(khatabookId);
@@ -82,7 +82,7 @@ public class PaymentAggregationController {
     }
 
 
-    @GetMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/aggregate")
+    @GetMapping(path = "/{khatabookId}/{customerId}/aggregate")
     public ResponseEntity<?> getLastAggregatedPayment(@PathVariable String khatabookId, @PathVariable String customerId) {
 
         val khatabook = myKhatabookClient.getKhatabookDetails(khatabookId);
@@ -97,7 +97,7 @@ public class PaymentAggregationController {
         return ResponseEntity.ok(myAggregatePaymentService.getLastAggregation(khatabook, customer.get()));
     }
 
-    @GetMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}/aggregate")
+    @GetMapping(path = "/{khatabookId}/msisdn/{msisdn}/aggregate")
     public ResponseEntity<?> getLastAggregatedPaymentByMsisdn(@PathVariable String khatabookId, @PathVariable String msisdn) {
 
         val khatabook = myKhatabookClient.getKhatabookByKhatabookId(khatabookId);

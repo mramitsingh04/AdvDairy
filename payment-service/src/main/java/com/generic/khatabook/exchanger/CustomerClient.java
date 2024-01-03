@@ -12,7 +12,7 @@ public interface CustomerClient {
     @GetExchange("/khatabook/{khatabookId}/customer/{customerId}")
     public ResponseEntity<?> getCustomerByCustomerId(@PathVariable String khatabookId, @PathVariable String customerId);
 
-    @PatchExchange(value = "/khatabook/{khatabookId}/customer/{customerId}", contentType = "application/json-patch+json")
+    @PatchExchange(value = "/{khatabookId}/customer/{customerId}", contentType = "application/json-patch+json")
     public ResponseEntity<?> updatePartialCustomer(@PathVariable String khatabookId, @PathVariable String customerId,
                                                    @RequestBody Map<String, Object> customerEntities);
 }

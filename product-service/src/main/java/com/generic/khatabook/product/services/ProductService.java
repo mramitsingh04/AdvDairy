@@ -5,6 +5,8 @@ import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 
 import java.util.List;
+import java.util.Map;
+
 public interface ProductService {
 
     List<ProductDTO> findAllProducts();
@@ -14,7 +16,6 @@ public interface ProductService {
     ProductDTO saveProduct(ProductDTO product);
 
     Container<ProductDTO, ProductUpdatable> findProductById(String productId);
-
     void delete(ProductDTO productDTO);
 
     ProductDTO updateProduct(ProductDTO entityModel);

@@ -25,10 +25,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RestController
 @RequestMapping("product-service")
 @RequiredArgsConstructor
-public class ProductManagementController {
+public class ProductController {
     private final ProductService myProductService;
     private final IdGeneratorService myIdGeneratorService;
 
@@ -58,12 +60,23 @@ public class ProductManagementController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable String productId) {
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable String productId, @RequestParam(required = false) boolean rating)
+    {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
         if (Objects.isNull(entityModel)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
         }
+        return ResponseEntity.ok(entityModel);
+    }
 
+    @GetMapping("/partial/{productId}")
+    public ResponseEntity<ProductDTO> getPartialProductById(@PathVariable String productId,
+                                                      @RequestParam(required = false) String... params)
+    {
+        final ProductDTO entityModel = myProductService.findProductById(productId).get();
+        if (Objects.isNull(entityModel)) {
+            return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
+        }
         return ResponseEntity.ok(entityModel);
     }
 

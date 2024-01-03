@@ -47,7 +47,7 @@ public class KhatabookController {
 
         if (!myKhatabookService.isValid(khatabookRequest)) {
             myKhatabookService.create(khatabookRequest);
-            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/khatabookId/{khatabookId}").buildAndExpand(khatabookRequest.khatabookId()).toUri()).body(khatabookRequest);
+            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{khatabookId}").buildAndExpand(khatabookRequest.khatabookId()).toUri()).body(khatabookRequest);
         } else {
             return ResponseEntity.badRequest().body(khatabook);
         }
@@ -58,18 +58,18 @@ public class KhatabookController {
         return myKhatabookService.delete(NULL, msisdn);
     }
 
-    @GetMapping("/khatabookId/{khatabookId}")
+    @GetMapping("/{khatabookId}")
     public KhatabookDTO getById(@PathVariable String khatabookId) {
         return myKhatabookService.getKhatabookByKhatabookId(khatabookId);
     }
 
-    @GetMapping("/khatabookId/{khatabookId}/exist")
+    @GetMapping("/{khatabookId}/exist")
     public boolean isExist(@PathVariable String khatabookId) {
         return myKhatabookService.isExist(khatabookId);
     }
 
 
-    @DeleteMapping("/khatabookId/{khatabookId}")
+    @DeleteMapping("/{khatabookId}")
     public KhatabookDTO deleteById(@PathVariable String khatabookId) {
         return myKhatabookService.delete(khatabookId, NULL);
     }

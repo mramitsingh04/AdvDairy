@@ -1,18 +1,22 @@
 package com.generic.khatabook.product.services.impl;
 
+import com.generic.khatabook.product.entity.Product;
 import com.generic.khatabook.product.exceptions.AppEntity;
 import com.generic.khatabook.product.exceptions.IllegalArgumentException;
 import com.generic.khatabook.product.exceptions.InputValidationException;
 import com.generic.khatabook.product.exceptions.SubEntity;
+import com.generic.khatabook.product.exchanger.RatingClient;
 import com.generic.khatabook.product.model.Container;
 import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 import com.generic.khatabook.product.model.UnitOfMeasurement;
 import com.generic.khatabook.product.repository.ProductRepository;
 import com.generic.khatabook.product.services.ProductService;
+import com.generic.khatabook.product.services.RatingService;
 import com.generic.khatabook.product.services.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +28,12 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository myProductManagementRepository;
     private final ProductMapper myProductMapper;
-
+    @Autowired
+    private RatingService myRatingService;
     @Override
     public List<ProductDTO> findAllProducts() {
-        return myProductMapper.mapToDTOs(myProductManagementRepository.findAll());
+        final List<Product> allProducts = myProductManagementRepository.findAll();
+        return myProductMapper.mapToDTOs(allProducts);
     }
 
     @Override

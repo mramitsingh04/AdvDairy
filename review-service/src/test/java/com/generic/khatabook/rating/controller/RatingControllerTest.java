@@ -50,7 +50,7 @@ class RatingControllerTest extends AbstractTest {
                 new RatingDTO(null, fromCustomerId, PRODUCT, entityId, 4.0f, "Good milk product.");
 
         final RatingDTO ratingResponse =
-                getReviews().stream().filter(x -> x.entityType() == ratingRequest.entityType()).filter(x -> x.fromCustomerId().equals(ratingRequest.fromCustomerId()))
+                getReviews().stream().filter(x -> x.entityType() == ratingRequest.entityType()).filter(x -> x.customerId().equals(ratingRequest.customerId()))
                         .filter(x -> x.entityId().equals(ratingRequest.entityId()))
                         .findFirst().orElse(null);
         ProductDTO productEntityId =

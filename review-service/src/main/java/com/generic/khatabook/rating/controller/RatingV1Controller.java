@@ -2,43 +2,47 @@ package com.generic.khatabook.rating.controller;
 
 import com.generic.khatabook.rating.exceptions.AppEntity;
 import com.generic.khatabook.rating.exceptions.LimitBonusException;
+import com.generic.khatabook.rating.exceptions.NotFoundException;
 import com.generic.khatabook.rating.exchanger.CustomerClient;
-import com.generic.khatabook.rating.model.CustomerRatingViews;
+import com.generic.khatabook.rating.exchanger.ProductClient;
 import com.generic.khatabook.rating.model.ProductDTO;
 import com.generic.khatabook.rating.model.ProductRatingViews;
 import com.generic.khatabook.rating.model.ProductView;
 import com.generic.khatabook.rating.model.RatingDTO;
 import com.generic.khatabook.rating.model.RatingEntityType;
-import com.generic.khatabook.rating.services.ProductProxyService;
 import com.generic.khatabook.rating.services.RatingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
 @RestController()
-@RequestMapping("/rating-service")
+@RequestMapping("/rating-service/v1")
 @Slf4j
-public class RatingController {
+public class RatingV1Controller {
 
     private RatingService myRatingService;
-
+    private ProductClient myProductClient;
+    private CustomerClient myCustomerClient;
 
     @Autowired
-    public RatingController(final RatingService ratingService) {
+    public RatingV1Controller(final RatingService ratingService, final ProductClient myProductClient, final CustomerClient myCustomerClient) {
         this.myRatingService = ratingService;
+        this.myProductClient = myProductClient;
+        this.myCustomerClient = myCustomerClient;
     }
 
     @PostMapping("/")
@@ -48,11 +52,10 @@ public class RatingController {
             return ResponseEntity.noContent().build();
         }
 
-//        final ProductDTO productDetails = myProductClient.getProductById(rating.entityId()).getBody();
-        final ProductDTO productDetails = null;
-//        if (isNull(productDetails)) {
-//            return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, rating.entityId()).get()).build();
-//        }
+        final ProductDTO productDetails = myProductClient.getProductById(rating.entityId()).getBody();
+        if (isNull(productDetails)) {
+            return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, rating.entityId()).get()).build();
+        }
         if (rating.rating() > 5) {
             return ResponseEntity.of(new LimitBonusException(AppEntity.PRODUCT, LimitBonusException.Limit.MAX, rating.rating()).get()).build();
         } else if (rating.rating() < 0) {
@@ -62,53 +65,39 @@ public class RatingController {
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/customer/{customerId}/product/{entityId}").buildAndExpand(ratingDTO.customerId(), ratingDTO.entityId()).toUri()).build();
     }
 
-    @GetMapping("/product/{entityId}")
-    public ResponseEntity<?> findAllRatingByProductId(@PathVariable String entityId) {
-        final ProductRatingViews productRatings = myRatingService.findProductRatingByProductId(entityId);
-        if (isNull(productRatings)) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(productRatings);
-    }
-    @GetMapping("/product/{entityId}/lite")
-    public ResponseEntity<Float> getRatingForProductId(@PathVariable String entityId) {
-        final Float productRatings = myRatingService.getRatingByEntityId(entityId);
-        if (isNull(productRatings)) {
-            return ResponseEntity.of(Optional.of(0f));
-        }
-        return ResponseEntity.ok(productRatings);
-    }
-
-    @GetMapping("/{entityType}/{entityId}")
-    public ResponseEntity<?> findRatingByEntityTypeAndEntityId(@PathVariable String entityType, @PathVariable String entityId)
-    {
-        if (entityType == null || entityId == null) {
-            return ResponseEntity.ok(new ProductRatingViews( myRatingService.findAllRating().stream().map(myRatingService::convertToCustomerView).collect(Collectors.toList())));
-        }
-
-        RatingEntityType ratingEntityType = RatingEntityType.NONE;
+/*    @GetMapping("/product/{entityId}")
+    public ResponseEntity<?> findAllRatingByProductId(@PathVariable String productId) {
+        ProductView productView = null;
+        ProductDTO productDTO = null;
         try {
-            ratingEntityType = RatingEntityType.valueOf(entityType);
-        } catch (IllegalArgumentException e) {
-            log.error("Illegal Argument Exception {}", entityType);
+            ResponseEntity<ProductDTO> productDetails = myProductClient.getProductById(productId);
+            productDTO = productDetails.getBody();
+            productView = new ProductView(productDTO.id(), productDTO.name());
+
+        } catch (WebClientRequestException e) {
+            final ProblemDetail prodNotFound = new NotFoundException(AppEntity.PRODUCT, productId).get();
+            log.error(prodNotFound.getDetail(), e);
+            return ResponseEntity.of(prodNotFound).build();
         }
 
-        final List<RatingDTO> productRatings = myRatingService.findRatingByEntityTypeAndEntityId(ratingEntityType, entityId);
-        final ProductView productView = ProductView.of(entityId);
+        final List<RatingDTO> productRatings = myRatingService.findProductRatingByProductId(productDTO.id());
         if (isNull(productRatings) || productRatings.isEmpty()) {
             return ResponseEntity.ok(new ProductRatingViews(productView));
         }
-        return ResponseEntity.ok(new ProductRatingViews(productView, productRatings.stream().map(myRatingService::convertToCustomerView).collect(Collectors.toList())));
-    }
+        return ResponseEntity.ok(new ProductRatingViews(productView, productRatings));
+    }*/
 
+/*
     @GetMapping("/customer/{customerId}")
-    public ResponseEntity<CustomerRatingViews> findAllRatingByCustomerId(@PathVariable String customerId) {
-        final CustomerRatingViews customerRatingViews = myRatingService.findProductRatingByCustomerId(customerId);
-        if (isNull(customerRatingViews)) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> findAllRatingByCustomerId(@PathVariable String customerId) {
+        ProductView productView = null;
+        final List<RatingDTO> productRatings = myRatingService.findProductRatingByCustomerId(customerId);
+        if (isNull(productRatings) || productRatings.isEmpty()) {
+            return ResponseEntity.ok(new ProductRatingViews(productView));
         }
-        return ResponseEntity.ok(customerRatingViews);
+        return ResponseEntity.ok(new ProductRatingViews(productRatings));
     }
+*/
 
     @GetMapping("/customer/{customerId}/product/{entityId}")
     public ResponseEntity<?> findAllRatingByCustomerId(@PathVariable String customerId, @PathVariable String entityId) {

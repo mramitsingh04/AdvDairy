@@ -4,6 +4,7 @@ import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.InvalidArgumentException;
 import com.generic.khatabook.exceptions.InvalidArgumentValueException;
 import com.generic.khatabook.exceptions.NotFoundException;
+import com.generic.khatabook.model.Container;
 import com.generic.khatabook.model.CustomerDTO;
 import com.generic.khatabook.model.CustomerSpecificationDTO;
 import com.generic.khatabook.model.CustomerUpdatable;
@@ -91,7 +92,7 @@ public class CustomerController {
                 customerDTO.customerId()).toUri()).body(entityModel);
     }
 
-    @GetMapping(path = "{khatabookId}/{customerId}", produces = {"application/json"})
+    @GetMapping(path = "/{khatabookId}/{customerId}", produces = {"application/json"})
     public ResponseEntity<?> getCustomerByCustomerId(
             @RequestParam(required = false, defaultValue = "desc") String sorting,
             @RequestParam(required = false, defaultValue = "date") String sortingBy,
@@ -154,7 +155,7 @@ public class CustomerController {
         return ResponseEntity.ok(entityModel);
     }
 
-    @GetMapping(path = "{khatabookId}/msisdn/{msisdn}", produces = {"application/hal+json"})
+    @GetMapping(path = "/{khatabookId}/msisdn/{msisdn}", produces = {"application/hal+json"})
     public ResponseEntity<?> getCustomerByMsisdn(@PathVariable String khatabookId, @PathVariable String msisdn) {
 
         val khatabook = myKhatabookService.getKhatabookByKhatabookId(khatabookId);
@@ -195,6 +196,15 @@ public class CustomerController {
         entityModel.add(linkForAggregate);
         return ResponseEntity.ok(entityModel);
     }
+    @GetMapping(path = "/{customerId}")
+    public ResponseEntity<?> getCustomerById(@PathVariable String customerId) {
+
+        final Container<CustomerDTO, CustomerUpdatable> customerDetails = myCustomerService.getByCustomerId(customerId);
+        if (isNull(customerDetails)) {
+            return ResponseEntity.badRequest().body(new NotFoundException(AppEntity.CUSTOMER, customerId));
+        }
+        return ResponseEntity.ok(customerDetails.get());
+    }
 
     private boolean isSortingPossibleValueValid(final String sorting) {
         return ASC_DESC.contains(sorting);
@@ -204,7 +214,7 @@ public class CustomerController {
         return DATE_CUSTOMER_PRODUCT.contains(sortingBy);
     }
 
-    @DeleteMapping(path = "{khatabookId}/msisdn/{msisdn}")
+    @DeleteMapping(path = "/{khatabookId}/msisdn/{msisdn}")
     public ResponseEntity<?> deleteByMsisdn(@PathVariable String msisdn) {
 
         final CustomerDTO customerDetails = myCustomerService.getByMsisdn(msisdn);
@@ -218,7 +228,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerDetails);
     }
 
-    @DeleteMapping(path = "{khatabookId}/{customerId}")
+    @DeleteMapping(path = "/{khatabookId}/{customerId}")
     public ResponseEntity<CustomerDTO> deleteByCustomerId(@PathVariable String customerId) {
         final CustomerDTO customerDetails = myCustomerService.getByCustomerId(customerId).get();
         if (isNull(customerDetails)) {
@@ -231,7 +241,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerDetails);
     }
 
-    @PutMapping(path = "{khatabookId}/{customerId}")
+    @PutMapping(path = "/{khatabookId}/{customerId}")
     public ResponseEntity<EntityModel<KhatabookDetailsView>> updateCustomer(@PathVariable String khatabookId,
                                                                             @PathVariable String customerId,
                                                                             @RequestBody CustomerDTO customerDTO)
@@ -380,7 +390,7 @@ public class CustomerController {
         }
     }
 
-    @PatchMapping(path = "{khatabookId}/{customerId}", consumes = "application/json-patch+json")
+    @PatchMapping(path = "/{khatabookId}/{customerId}", consumes = "application/json-patch+json")
     public ResponseEntity<?> updatePartialCustomerV2(
             @RequestParam String version,
             @PathVariable String khatabookId,

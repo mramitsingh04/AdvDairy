@@ -15,11 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
 @RestController
+@RequestMapping(path = "payment-service")
 public class PaymentController {
 
 
@@ -32,10 +34,7 @@ public class PaymentController {
     @Autowired
     private PaymentService myPaymentService;
 
-    @Autowired
-    private IdGeneratorService myIdGeneratorService;
-
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/pay")
+    @PostMapping(path = "/{khatabookId}/{customerId}/pay")
     public ResponseEntity<?> gavenToCustomer(@PathVariable String khatabookId, @PathVariable String customerId,
                                              @RequestBody PaymentDTO payment) {
 
@@ -61,7 +60,7 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}/pay")
+    @PostMapping(path = "/{khatabookId}/msisdn/{msisdn}/pay")
     public ResponseEntity<?> gavenToCustomerByMsisdn(@PathVariable String khatabookId,
                                                      @PathVariable String msisdn,
                                                      @RequestBody PaymentDTO payment) {
@@ -81,7 +80,7 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/customer/{customerId}/receive")
+    @PostMapping(path = "/{khatabookId}/{customerId}/receive")
     public ResponseEntity<?> receiveFromCustomer(@PathVariable String khatabookId,
                                                  @PathVariable String customerId,
                                                  @RequestBody PaymentDTO payment) {
@@ -99,7 +98,7 @@ public class PaymentController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/khatabook/{khatabookId}/msisdn/{msisdn}/receive")
+    @PostMapping(path = "/{khatabookId}/msisdn/{msisdn}/receive")
     public ResponseEntity<?> receiveFromCustomerByMsisdn(@PathVariable String khatabookId,
                                                          @PathVariable String msisdn,
                                                          @RequestBody PaymentDTO payment) {

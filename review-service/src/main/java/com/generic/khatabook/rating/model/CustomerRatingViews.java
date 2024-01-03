@@ -11,38 +11,36 @@ import java.util.List;
 @Data
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductRatingViews {
+public class CustomerRatingViews {
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private final ProductView product;
+    private final CustomerView customer;
     private final long totalNumberRating;
     private final double minRating;
     private final double maxRating;
     private final double avgRating;
-    private final List<CustomerView> customerRatings;
+    private final List<ProductView> productRatings;
 
-    public ProductRatingViews(final List<CustomerView> customerRatings) {
+    public CustomerRatingViews(final List<ProductView> productRatings) {
 
-        this(null, customerRatings);
+        this(null, productRatings);
 
     }
 
-    public ProductRatingViews(ProductView product, final List<CustomerView> customerRatings) {
-        this.customerRatings = customerRatings;
-        this.product = product;
-        DoubleSummaryStatistics statistics = customerRatings.stream().map(CustomerView::rating).mapToDouble(Float::doubleValue).summaryStatistics();
+    public CustomerRatingViews(CustomerView customer, final List<ProductView> productRatings) {
+        this.productRatings = productRatings;
+        this.customer = customer;
+        DoubleSummaryStatistics statistics = productRatings.stream().map(ProductView::rating).mapToDouble(Float::doubleValue).summaryStatistics();
         this.totalNumberRating = statistics.getCount();
         this.minRating = Math.floor(statistics.getMin());
         this.maxRating = Math.ceil(statistics.getMax());
         this.avgRating = Math.round(statistics.getAverage());
     }
 
-    public ProductRatingViews(final ProductView productId) {
+    public CustomerRatingViews(final CustomerView customerView) {
 
-        this(productId, Collections.emptyList());
+        this(customerView, Collections.emptyList());
 
     }
 
-    public double getAvgRating() {
-        return avgRating;
-    }
+
 }

@@ -9,10 +9,10 @@ import java.util.List;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
 
-    List<Rating> findByProductId(String productId);
+    List<Rating> findByEntityId(String productId);
 
     List<Rating> findByCustomerId(String customerId);
 
-    Rating findByCustomerIdAndProductId(String customerId, String productId);
+    Rating findByCustomerIdAndEntityId(String customerId, String productId);
 
 }

@@ -14,9 +14,24 @@ public class AppClientConfig {
 
     @Bean
     public CustomerClient customerClient() {
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(WebClientAdapter.forClient(customerWebClient())).build();
+        final WebClientAdapter clientAdapter = WebClientAdapter.forClient(customerWebClient());
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(clientAdapter).build();
         return factory.createClient(CustomerClient.class);
     }
+
+    @Bean
+    @LoadBalanced
+    public WebClient customerWebClient() {
+//        return builder().baseUrl("http://localhost:8600/").build();
+        return builder().baseUrl("lb://khatabook-service").build();
+    }
+
+    @Bean
+    @LoadBalanced
+    WebClient.Builder builder() {
+        return WebClient.builder();
+    }
+
     @Bean
     @LoadBalanced
     public ProductClient productClient() {
@@ -25,26 +40,16 @@ public class AppClientConfig {
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder(clientAdapter).build();
         return factory.createClient(ProductClient.class);
     }
-    @Bean
-    @LoadBalanced
-    WebClient.Builder builder() {
-        return WebClient.builder();
-    }
-
-    @Bean
-    WebClient webClient(WebClient.Builder builder) {
-        return builder.build();
-    }
-
-    @Bean
-    public WebClient customerWebClient() {
-        return builder().baseUrl("http://localhost:8800").build();
-    }
 
     @Bean
     @LoadBalanced
     public WebClient productServiceWebClient() {
         return builder().baseUrl("lb://product-service").build();
+    }
+
+    @Bean
+    WebClient webClient(WebClient.Builder builder) {
+        return builder.build();
     }
 
 }

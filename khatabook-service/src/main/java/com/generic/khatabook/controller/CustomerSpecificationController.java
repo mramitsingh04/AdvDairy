@@ -54,12 +54,12 @@ public class CustomerSpecificationController {
 
 
 
-    @GetMapping(path = "/{khatabookId}/customer/{customerId}/specifications")
+    @GetMapping(path = "/{khatabookId}/{customerId}/specifications")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/{khatabookId}/customer/{customerId}/specification")
+    @PostMapping(path = "/{khatabookId}/{customerId}/specification")
     public ResponseEntity<?> create(@PathVariable String khatabookId,
                                     @PathVariable String customerId,
                                     @RequestBody CustomerSpecificationDTO customerSpecificationDTO) {
@@ -110,7 +110,7 @@ public class CustomerSpecificationController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @GetMapping("/{khatabookId}/{customerId}/specification/{specificationId}")
     public ResponseEntity<CustomerSpecificationDTO> getById(@PathVariable String khatabookId,
                                                             @PathVariable String customerId,
                                                             @PathVariable String specificationId) {
@@ -120,7 +120,7 @@ public class CustomerSpecificationController {
         return ResponseEntity.ok(specificationDTOS.get());
     }
 
-    @DeleteMapping("/{khatabookId}/customer/{customerId}/specification")
+    @DeleteMapping("/{khatabookId}/{customerId}/specification")
     public ResponseEntity<?> deleteById(@PathVariable String khatabookId, @PathVariable String customerId) {
         Containers<CustomerSpecificationDTO, CustomerSpecificationUpdatable> specificationDTOS = myCustomerSpecificationService.getCustomerSpecification(
                 khatabookId,
@@ -131,7 +131,7 @@ public class CustomerSpecificationController {
     }
 
 
-    @PutMapping("/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @PutMapping("/{khatabookId}/{customerId}/specification/{specificationId}")
     public ResponseEntity<?> updateCustomer(@PathVariable String khatabookId,
                                             @PathVariable String customerId,
                                             @PathVariable String specificationId,
@@ -141,7 +141,7 @@ public class CustomerSpecificationController {
     }
 
 
-    @PatchMapping("/{khatabookId}/customer/{customerId}/specification/{specificationId}")
+    @PatchMapping("/{khatabookId}/{customerId}/specification/{specificationId}")
     public ResponseEntity<?> patchUpdate1(@PathVariable String khatabookId,
                                           @PathVariable String customerId,
                                           @PathVariable String specificationId,
