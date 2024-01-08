@@ -55,8 +55,8 @@ class CustomerServiceImplTest {
     void setUp() {
 
         List<CustomerProduct> listOfProduct = new ArrayList<>();
-        listOfProduct.add(CustomerProduct.builder().cusProdId(fromString("1")).productId("milk").productName("milk").build());
-        listOfProduct.add(CustomerProduct.builder().cusProdId(fromString("2")).productId("room").productName("room").build());
+        listOfProduct.add(CustomerProduct.builder().cusProdId("1").productId("milk").productName("milk").build());
+        listOfProduct.add(CustomerProduct.builder().cusProdId("2").productId("room").productName("room").build());
         CustomerSpecification customerSpecification = CustomerSpecificationFactory.getCustomerSpecification();
 
 

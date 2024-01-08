@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("product-service")
@@ -48,11 +48,15 @@ public class ProductController {
     @PostMapping(path = "/")
     public ResponseEntity<?> create(@RequestBody ProductDTO product) {
         final List<ProductDTO> entityModel = myProductService.findProductByName(product.name());
-        if (Objects.isNull(entityModel)) {
+        if (isNull(entityModel)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, product.name()).get()).build();
         }
         try {
-            final ProductDTO newProduct = myProductService.saveProduct(product.copyOf(myIdGeneratorService.generateId()));
+            if (isNull(product.id())) {
+                product = product.copyOf(myIdGeneratorService.generateId());
+            }
+
+            final ProductDTO newProduct = myProductService.saveProduct(product);
             return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{productId}").buildAndExpand(product.id()).toUri()).body(newProduct);
         } catch (Exception e) {
             return ResponseEntity.of(ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(400), e.getMessage())).build();
@@ -60,21 +64,10 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable String productId, @RequestParam(required = false) boolean rating)
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable String productId)
     {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
-        if (Objects.isNull(entityModel)) {
-            return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
-        }
-        return ResponseEntity.ok(entityModel);
-    }
-
-    @GetMapping("/partial/{productId}")
-    public ResponseEntity<ProductDTO> getPartialProductById(@PathVariable String productId,
-                                                      @RequestParam(required = false) String... params)
-    {
-        final ProductDTO entityModel = myProductService.findProductById(productId).get();
-        if (Objects.isNull(entityModel)) {
+        if (isNull(entityModel)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
         }
         return ResponseEntity.ok(entityModel);
@@ -93,7 +86,7 @@ public class ProductController {
             } else {
                 return getAllProducts();
             }
-            if (Objects.isNull(products)) {
+            if (isNull(products)) {
                 return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, name).get()).build();
             }
         } catch (IllegalArgumentException e) {
@@ -112,7 +105,7 @@ public class ProductController {
     @DeleteMapping("/{productId}")
     public ResponseEntity<ProductDTO> deleteProductById(@PathVariable String productId) {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
-        if (Objects.isNull(entityModel)) {
+        if (isNull(entityModel)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
         }
 
@@ -141,7 +134,7 @@ public class ProductController {
     @PatchMapping(path = "/{productId}", consumes = "application/json-patch+json")
     public ResponseEntity<?> updatePartialProduct(@PathVariable String productId, @RequestBody Map<String, Object> productEntities) {
         final ProductUpdatable entityModel = myProductService.findProductById(productId).updatable();
-        if (Objects.isNull(entityModel)) {
+        if (isNull(entityModel)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();
         }
         for (final Map.Entry<String, Object> member : productEntities.entrySet()) {

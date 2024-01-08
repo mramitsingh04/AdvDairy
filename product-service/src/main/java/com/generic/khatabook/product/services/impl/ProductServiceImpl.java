@@ -5,14 +5,13 @@ import com.generic.khatabook.product.exceptions.AppEntity;
 import com.generic.khatabook.product.exceptions.IllegalArgumentException;
 import com.generic.khatabook.product.exceptions.InputValidationException;
 import com.generic.khatabook.product.exceptions.SubEntity;
-import com.generic.khatabook.product.exchanger.RatingClient;
 import com.generic.khatabook.product.model.Container;
 import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 import com.generic.khatabook.product.model.UnitOfMeasurement;
 import com.generic.khatabook.product.repository.ProductRepository;
 import com.generic.khatabook.product.services.ProductService;
-import com.generic.khatabook.product.services.RatingService;
+import com.generic.khatabook.product.services.RatingProxyService;
 import com.generic.khatabook.product.services.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository myProductManagementRepository;
     private final ProductMapper myProductMapper;
     @Autowired
-    private RatingService myRatingService;
+    private RatingProxyService myRatingService;
     @Override
     public List<ProductDTO> findAllProducts() {
         final List<Product> allProducts = myProductManagementRepository.findAll();

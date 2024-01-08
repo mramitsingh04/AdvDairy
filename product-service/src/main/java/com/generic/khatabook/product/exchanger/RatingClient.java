@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 
-@HttpExchange
+@HttpExchange(url = "/rating-service", accept = "application/json", contentType = "application/json")
 public interface RatingClient {
-    @GetExchange("/rating-service/product/{entityId}")
+    @GetExchange("/product/{entityId}")
     ResponseEntity<?> findAllRatingByProductId(@PathVariable String entityId);
 
-    @GetExchange("/rating-service/customer/{customerId}")
+    @GetExchange("/customer/{customerId}")
     ResponseEntity<?> findAllRatingByCustomerId(@PathVariable String customerId);
-    @GetExchange("/rating-service/product/{entityId}/lite")
+    @GetExchange("/product/{entityId}/lite")
     ResponseEntity<Float> getRatingForProductId(@PathVariable String entityId) ;
 }

@@ -6,7 +6,7 @@ import com.generic.khatabook.product.model.Mapper;
 import com.generic.khatabook.product.model.ProductDTO;
 import com.generic.khatabook.product.model.ProductUpdatable;
 import com.generic.khatabook.product.model.UnitOfMeasurement;
-import com.generic.khatabook.product.services.RatingService;
+import com.generic.khatabook.product.services.RatingProxyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ProductMapper implements Mapper<Product, ProductDTO, ProductUpdatable> {
 @Autowired
-private RatingService myRatingService;
+private RatingProxyService myRatingService;
 
     public Product mapToEntity(ProductDTO dto) {
         return Product.builder().id(dto.id()).name(dto.name()).price(dto.price()).unitOfMeasurement(

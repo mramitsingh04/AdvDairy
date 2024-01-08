@@ -21,7 +21,7 @@ import java.util.UUID;
 public class CustomerProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID cusProdId;
+    private String cusProdId;
     @Transient
     private String productName;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

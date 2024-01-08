@@ -40,7 +40,7 @@ public class Customer {
     private CustomerSpecification customerSpecification;
 
 
-    @OneToMany(mappedBy = "cusProdId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<CustomerProduct> products;
 

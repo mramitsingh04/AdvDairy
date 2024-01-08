@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 
-@HttpExchange
+@HttpExchange(url = "/product-service", accept = "application/json", contentType = "application/json")
 public interface ProductClient {
-    @GetExchange("/product-service/products")
+    @GetExchange("/products")
     ResponseEntity<ProductDTO> getAllProducts();
 
-    @GetExchange("/product-service/{productId}")
+    @GetExchange("/{productId}")
     ResponseEntity<ProductDTO> getProductById(@PathVariable String productId);
 
 

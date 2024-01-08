@@ -10,10 +10,10 @@ import org.springframework.web.service.annotation.PatchExchange;
 
 import java.util.Map;
 
-@HttpExchange
+@HttpExchange(url = "/customer-service", accept = "application/json", contentType = "application/json")
 public interface CustomerClient {
-    @GetExchange(url = "/customer-service/{khatabookId}/{customerId}", accept = {"application/json"})
+    @GetExchange(url = "/{khatabookId}/{customerId}")
     ResponseEntity<?> getCustomerByCustomerId(@PathVariable String khatabookId, @PathVariable String customerId);
-    @GetExchange("/customer-service/{customerId}")
+    @GetExchange("/{customerId}")
     ResponseEntity<?> getCustomerById(@PathVariable String customerId) ;
 }

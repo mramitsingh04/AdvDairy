@@ -1,5 +1,5 @@
 package com.generic.khatabook.product.services;
 
-public interface RatingService {
+public interface RatingProxyService {
     float fetchProductRating(String productId);
 }

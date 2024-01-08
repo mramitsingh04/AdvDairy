@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerProductRepository extends JpaRepository<CustomerProduct, Long> {
+public interface CustomerProductRepository extends JpaRepository<CustomerProduct, String> {
 
     @Query(value = "select * from customer_products where customer_id = ?1",
             countQuery = "select count(*) from customers where customer_id = ?1",

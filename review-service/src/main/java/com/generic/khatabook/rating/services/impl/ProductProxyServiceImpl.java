@@ -13,6 +13,7 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Service
 @Slf4j
@@ -31,7 +32,7 @@ public class ProductProxyServiceImpl implements ProductProxyService {
             ProductDTO productDTO = productDetails.getBody();
             return ProductView.of(productDTO.id(), productDTO.name());
 
-        } catch (WebClientRequestException e) {
+        } catch (WebClientRequestException | WebClientResponseException.ServiceUnavailable e) {
             final ProblemDetail prodNotFound = new NotFoundException(AppEntity.PRODUCT, productId).get();
             log.error(prodNotFound.getDetail(), e);
         }

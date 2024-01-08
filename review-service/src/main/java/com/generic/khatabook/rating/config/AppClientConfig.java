@@ -22,7 +22,6 @@ public class AppClientConfig {
     @Bean
     @LoadBalanced
     public WebClient customerWebClient() {
-//        return builder().baseUrl("http://localhost:8600/").build();
         return builder().baseUrl("lb://khatabook-service").build();
     }
 

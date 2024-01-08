@@ -30,7 +30,6 @@ import java.math.BigDecimal;
 @DynamicUpdate
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @NotEmpty
