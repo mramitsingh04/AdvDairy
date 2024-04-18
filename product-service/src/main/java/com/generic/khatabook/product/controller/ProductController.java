@@ -12,6 +12,9 @@ import com.generic.khatabook.product.model.ProductViews;
 import com.generic.khatabook.product.services.IdGeneratorService;
 import com.generic.khatabook.product.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +67,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
+    @Cacheable(value = "product", key = "#productId")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable String productId)
     {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
@@ -101,8 +105,8 @@ public class ProductController {
         return ResponseEntity.ok(new ProductViews(myProductService.findAllProducts()));
     }
 
-
     @DeleteMapping("/{productId}")
+    @CacheEvict(cacheNames = "product", key = "#productId", beforeInvocation = true)
     public ResponseEntity<ProductDTO> deleteProductById(@PathVariable String productId) {
         final ProductDTO entityModel = myProductService.findProductById(productId).get();
         if (isNull(entityModel)) {
@@ -115,6 +119,7 @@ public class ProductController {
 
 
     @PutMapping("/{productId}")
+    @CachePut(cacheNames = "product", key = "#productId")
     public ResponseEntity<?> updateProduct(@PathVariable String productId, @RequestBody ProductDTO product) {
         if (!myProductService.findProductById(productId).isPresent()) {
             return ResponseEntity.of(new NotFoundException(AppEntity.PRODUCT, productId).get()).build();

@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class AggregatePayment {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue

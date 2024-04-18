@@ -23,6 +23,7 @@
         <module>config-server</module>
         <module>api-gateway-server</module>
         <module>payment-service</module>
+        <module>cache-service</module>
     </modules>
 
     <properties>

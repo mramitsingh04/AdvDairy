@@ -6,9 +6,9 @@ spring:
           password: mramitsingh04
           username: Amit.Singh04
           clone-on-start: 'true'
-          uri: https://github.com/mramitsingh04/DairyAppConfigData
+          uri: https://github.com/mramitsingh04/DairyAppConfigData.git
   application:
-    name: dairy-app-config-data
+    name: central-config-server
 server:
   port: '8012'
 
@@ -18,3 +18,11 @@ logging:
     org:
       springframework: info
       hibernate: trace
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

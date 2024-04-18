@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 @Component
 public class RatingMapper implements Mapper<Rating, RatingDTO, Void> {
@@ -22,7 +23,7 @@ public class RatingMapper implements Mapper<Rating, RatingDTO, Void> {
     @Override
     public Container<RatingDTO, Void> mapToContainer(final Rating product) {
 
-        if (Objects.isNull(product)) {
+        if (isNull(product)) {
             return Container.empty();
         }
 
@@ -32,11 +33,14 @@ public class RatingMapper implements Mapper<Rating, RatingDTO, Void> {
 
     @Override
     public RatingDTO mapToDTO(final Rating rating) {
+        if (isNull(rating)) {
+            return null;
+        }
         return new RatingDTO(rating.getId(), rating.getCustomerId(), RatingEntityType.valueOf(rating.getEntityType()), rating.getEntityId(), rating.getRating(), rating.getDescription());
     }
 
     public List<Rating> mapToEntities(final List<RatingDTO> products) {
-        if (Objects.isNull(products)) {
+        if (isNull(products)) {
             return Collections.emptyList();
         }
         return products.stream().map(this::mapToEntity).toList();

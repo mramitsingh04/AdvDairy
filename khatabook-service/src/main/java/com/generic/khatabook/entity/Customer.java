@@ -21,6 +21,7 @@ import java.util.UUID;
 @Builder
 //@Getter(AccessLevel.NONE)
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String customerId;
@@ -43,5 +44,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<CustomerProduct> products;
+
 
 }

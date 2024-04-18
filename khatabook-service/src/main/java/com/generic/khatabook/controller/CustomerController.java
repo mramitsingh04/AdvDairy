@@ -76,12 +76,7 @@ public class CustomerController {
             return ResponseEntity.of(new NotFoundException(AppEntity.KHATABOOK, khatabookId).get()).build();
         }
 
-        CustomerDTO savedCustomer;
-        try {
-            savedCustomer = myCustomerService.save(customerDTO);
-        } catch (NotFoundException e) {
-            return ResponseEntity.of(e.get()).build();
-        }
+        CustomerDTO savedCustomer = myCustomerService.save(customerDTO);
         EntityModel<CustomerDTO> entityModel = EntityModel.of(savedCustomer);
         entityModel.add(linkTo(methodOn(CustomerController.class).getCustomerByCustomerId(null, null, khatabookId,
                 savedCustomer.customerId())).withSelfRel());
