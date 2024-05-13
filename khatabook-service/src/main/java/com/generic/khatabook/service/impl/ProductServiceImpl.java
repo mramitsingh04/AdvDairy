@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
             } else {
                 return responseEntity.getBody();
             }
-        } catch (WebClientResponseException e) {
+        } catch (WebClientResponseException | IllegalStateException e) {
             throw new NotFoundException(AppEntity.PRODUCT, product.productId());
         }
 

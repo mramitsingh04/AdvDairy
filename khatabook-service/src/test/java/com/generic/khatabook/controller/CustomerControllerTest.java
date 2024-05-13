@@ -1,16 +1,8 @@
 package com.generic.khatabook.controller;
 
 import com.generic.khatabook.factory.ProductFactory;
-import com.generic.khatabook.model.Container;
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.CustomerUpdatable;
-import com.generic.khatabook.model.KhatabookDTO;
-import com.generic.khatabook.model.KhatabookDetails;
-import com.generic.khatabook.model.Product;
-import com.generic.khatabook.service.CustomerService;
-import com.generic.khatabook.service.CustomerSpecificationService;
-import com.generic.khatabook.service.KhatabookService;
-import com.generic.khatabook.service.PaymentService;
+import com.generic.khatabook.model.*;
+import com.generic.khatabook.service.*;
 import com.generic.khatabook.validator.CustomerValidation;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +36,7 @@ class CustomerControllerTest extends AbstractTest {
     private CustomerService myCustomerService;
 
     @MockBean
-    private KhatabookService myKhatabookService;
+    private KhatabookRestService myKhatabookService;
 
     @MockBean
     private PaymentService myPaymentService;
@@ -57,7 +49,8 @@ class CustomerControllerTest extends AbstractTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private KhatabookDTO mockKhatabook = new KhatabookDTO("123", "bookId", "khatabookId-01", null, null, null);
+    private KhatabookView mockKhatabook = new KhatabookView(GroupView.of("123"), "bookId", "khatabookId-01", null, null, null);
+    private KhatabookDTO mockKhatabookdto = new KhatabookDTO("123", "bookId", "khatabookId-01", null, null, null);
 
     @Test
     void testGetCustomersForNonExistingKhatabook() throws Exception {
@@ -172,7 +165,7 @@ class CustomerControllerTest extends AbstractTest {
         assertEquals(200, response.getStatus());
 
 
-        KhatabookDetails khatabookDetails = new KhatabookDetails(mockKhatabook,
+        KhatabookDetails khatabookDetails = new KhatabookDetails(mockKhatabookdto,
                 listOfCustomerDTO, null);
 
         assertEquals("{\"bookId\":\"bookId\",\"khatabookId\":\"khatabookId-01\",\"numberOfCustomers\":1,\"customers\":[{\"customerId\":\"CUS01\",\"khatabookId\":\"khatabookId-01\",\"msisdn\":\"1234\",\"firstName\":\"Amit\",\"lastName\":\"Singh\",\"products\":[{\"productId\":\"milk\",\"name\":\"milk\"},{\"productId\":\"sugar\",\"name\":\"sugar\"}]}]}", response.getContentAsString());

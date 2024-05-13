@@ -9,3 +9,15 @@ spring:
        banner-mode: "off"
   application:
       name: review-service
+
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}
+    hostname: localhost
+    preferIpAddress: false
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

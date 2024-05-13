@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 public class KhataBookGroupServiceImpl implements KhataBookGroupService {
@@ -57,4 +60,8 @@ public class KhataBookGroupServiceImpl implements KhataBookGroupService {
         return myKhatabookGroupMapper.mapToDTOs(khatabookGroupRepository.findAll());
     }
 
+    @Override
+    public List<KhatabookGroupDTO> getAllGroups(String[] groups) {
+        return getAll().stream().filter(g -> Arrays.asList(groups).contains(g.groupName())).collect(Collectors.toList());
+    }
 }

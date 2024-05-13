@@ -30,13 +30,7 @@ public class OperatorController {
     private static final String NULL = null;
     @Autowired
     private OperatorService myOperatorService;
-    @Autowired
-    private CustomerService myCustomerService;
-    @Autowired
-    private IdGeneratorService myIdGeneratorService;
 
-    @Autowired
-    private MessageSource messageSource;
 
     @GetMapping("/operators")
     public ResponseEntity<List<OperatorDTO>> operatorList() {

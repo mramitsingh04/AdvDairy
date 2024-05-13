@@ -1,32 +1,32 @@
 package com.generic.khatabook.controller;
 
 import com.generic.khatabook.model.KhatabookDTO;
+import com.generic.khatabook.model.KhatabookGroupDTO;
+import com.generic.khatabook.model.KhatabookView;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.IdGeneratorService;
-import com.generic.khatabook.service.KhatabookService;
+import com.generic.khatabook.service.KhataBookGroupService;
+import com.generic.khatabook.service.KhatabookRestService;
 import jakarta.validation.Valid;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Objects;
+
 @RestController
 @RequestMapping(path = "khatabook-service")
 public class KhatabookController {
 
     private static final String NULL = null;
     @Autowired
-    private KhatabookService myKhatabookService;
+    private KhatabookRestService khatabookRestService;
+    @Autowired
+    private KhataBookGroupService khataBookGroupService;
     @Autowired
     private CustomerService myCustomerService;
     @Autowired
@@ -36,8 +36,21 @@ public class KhatabookController {
     private MessageSource messageSource;
 
     @GetMapping("/khatabooks")
-    public List<KhatabookDTO> khatabookList() {
-        return myKhatabookService.getAll();
+    public List<KhatabookView> khatabookList(@RequestParam(required = false) String[] groups) {
+        if (Objects.nonNull(groups)) {
+            List<KhatabookGroupDTO> allFoundGroups = khataBookGroupService.getAllGroups(groups);
+            return khatabookRestService.getAll(allFoundGroups.stream().map(KhatabookGroupDTO::groupId).toList());
+        }
+        return khatabookRestService.getAll();
+    }
+
+    @GetMapping("/V1/khatabooks")
+    public List<KhatabookView> getAllKhatabook(@RequestParam(required = false) String[] groups) {
+        if (Objects.nonNull(groups)) {
+            List<KhatabookGroupDTO> allFoundGroups = khataBookGroupService.getAllGroups(groups);
+            return khatabookRestService.getAll(allFoundGroups.stream().map(KhatabookGroupDTO::groupId).toList());
+        }
+        return khatabookRestService.getAll();
     }
 
     @PostMapping("/")
@@ -45,8 +58,8 @@ public class KhatabookController {
 
         val khatabookRequest = khatabook.copyOf(myIdGeneratorService.generateId());
 
-        if (!myKhatabookService.isValid(khatabookRequest)) {
-            myKhatabookService.create(khatabookRequest);
+        if (!khatabookRestService.isValid(khatabookRequest)) {
+            khatabookRestService.create(khatabookRequest);
             return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{khatabookId}").buildAndExpand(khatabookRequest.khatabookId()).toUri()).body(khatabookRequest);
         } else {
             return ResponseEntity.badRequest().body(khatabook);
@@ -54,35 +67,35 @@ public class KhatabookController {
     }
 
     @GetMapping("/msisdn/{msisdn}")
-    public KhatabookDTO deleteByMsisdn(@PathVariable String msisdn) {
-        return myKhatabookService.delete(NULL, msisdn);
+    public KhatabookView deleteByMsisdn(@PathVariable String msisdn) {
+        return khatabookRestService.delete(NULL, msisdn);
     }
 
     @GetMapping("/{khatabookId}")
-    public KhatabookDTO getById(@PathVariable String khatabookId) {
-        return myKhatabookService.getKhatabookByKhatabookId(khatabookId);
+    public KhatabookView getById(@PathVariable String khatabookId) {
+        return khatabookRestService.getKhatabookByKhatabookId(khatabookId);
     }
 
     @GetMapping("/{khatabookId}/exist")
     public boolean isExist(@PathVariable String khatabookId) {
-        return myKhatabookService.isExist(khatabookId);
+        return khatabookRestService.isExist(khatabookId);
     }
 
 
     @DeleteMapping("/{khatabookId}")
-    public KhatabookDTO deleteById(@PathVariable String khatabookId) {
-        return myKhatabookService.delete(khatabookId, NULL);
+    public KhatabookView deleteById(@PathVariable String khatabookId) {
+        return khatabookRestService.delete(khatabookId, NULL);
     }
 
     @DeleteMapping("/")
-    public KhatabookDTO deleteByLastIndex() {
-        return myKhatabookService.delete(NULL, NULL);
+    public KhatabookView deleteByLastIndex() {
+        return khatabookRestService.delete(NULL, NULL);
     }
 
 
     @PutMapping("/")
-    public KhatabookDTO updateKhatabook(@RequestBody KhatabookDTO khatabookDTO) {
-        return myKhatabookService.update(khatabookDTO);
+    public KhatabookView updateKhatabook(@RequestBody KhatabookDTO khatabookDTO) {
+        return khatabookRestService.update(khatabookDTO);
     }
 
 }

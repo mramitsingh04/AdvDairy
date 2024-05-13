@@ -19,4 +19,6 @@ public interface KhataBookGroupService {
 
     List<KhatabookGroupDTO> getAll();
 
+    List<KhatabookGroupDTO> getAllGroups(String[] groups);
+
 }

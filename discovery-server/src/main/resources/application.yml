@@ -8,9 +8,11 @@ eureka:
   instance:
     prefer-ip-address: true
     hostname: localhost
+    preferIpAddress: true
   client:
     registerWithEureka: false
     fetchRegistry: false
+    preferIpAddress: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 

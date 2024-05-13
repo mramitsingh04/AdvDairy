@@ -1,13 +1,64 @@
-# add config server details
- spring:
-   cloud:
-     config:
-       uri: http://localhost:8012
-       fail-fast: 'true'
-       name: khatabook-service
-       label: master
-   main:
-     banner-mode: "off"
-   application:
-     name: khatabook-service
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: khatabook-service
+  h2:
+    datasource:
+      url: jdbc:h2:mem:testdb
+      driverClassName: org.h2.Driver
+      username: sa
+      password: password
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+    console:
+      enabled: 'true'
+  devtools:
+    add-properties: 'true'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: root
+    username: root
+    url: jdbc:mysql://localhost:3306/khatabook_db?useSSL=false
 
+  mvc:
+    throw-exception-if-no-handler-found: 'true'
+  messages:
+    basename: messages
+  resources:
+    add-mappings: 'false'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    sho-details: always
+graphql:
+  servlet:
+    mapping: /apis/graphql
+logging:
+  level:
+    root: info
+    org:
+      springframework: info
+      hibernate: trace
+
+server:
+  port: 8600
+eureka:
+  instance:
+    instanceId: ${spring.application.name}
+    hostname: localhost
+    preferIpAddress: false
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}

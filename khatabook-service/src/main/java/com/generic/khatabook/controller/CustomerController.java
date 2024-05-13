@@ -4,15 +4,7 @@ import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.InvalidArgumentException;
 import com.generic.khatabook.exceptions.InvalidArgumentValueException;
 import com.generic.khatabook.exceptions.NotFoundException;
-import com.generic.khatabook.model.Container;
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.CustomerSpecificationDTO;
-import com.generic.khatabook.model.CustomerUpdatable;
-import com.generic.khatabook.model.KhatabookDetails;
-import com.generic.khatabook.model.KhatabookDetailsView;
-import com.generic.khatabook.model.KhatabookPaymentSummaryView;
-import com.generic.khatabook.model.PaymentDTO;
-import com.generic.khatabook.model.Product;
+import com.generic.khatabook.model.*;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.CustomerSpecificationService;
 import com.generic.khatabook.service.KhatabookService;
@@ -78,7 +70,7 @@ public class CustomerController {
 
         CustomerDTO savedCustomer = myCustomerService.save(customerDTO);
         EntityModel<CustomerDTO> entityModel = EntityModel.of(savedCustomer);
-        entityModel.add(linkTo(methodOn(CustomerController.class).getCustomerByCustomerId(null, null, khatabookId,
+        entityModel.add(linkTo(methodOn(CustomerController.class).getKhatabookCustomer(null, null, khatabookId,
                 savedCustomer.customerId())).withSelfRel());
         entityModel.add(linkTo(methodOn(CustomerController.class).getCustomerByMsisdn(khatabookId,
                 savedCustomer.msisdn())).withSelfRel());
@@ -88,16 +80,10 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/{khatabookId}/{customerId}", produces = {"application/json"})
-    public ResponseEntity<?> getCustomerByCustomerId(
-            @RequestParam(required = false, defaultValue = "desc") String sorting,
-            @RequestParam(required = false, defaultValue = "date") String sortingBy,
-            @PathVariable String khatabookId,
-            @PathVariable String customerId
-
-    )
-    {
-//amit testing not done
-
+    public ResponseEntity<?> getKhatabookCustomer(@RequestParam(required = false, defaultValue = "desc") String sorting,
+                                                                      @RequestParam(required = false, defaultValue = "date") String sortingBy,
+                                                                      @PathVariable String khatabookId,
+                                                                      @PathVariable String customerId) {
         if (nonNull(sorting) && !isSortingPossibleValueValid(sorting)) {
             return ResponseEntity.of(new InvalidArgumentValueException(SORTING_MSG.formatted(sorting, ASC_DESC)).get()).build();
         }
@@ -107,14 +93,41 @@ public class CustomerController {
                     "possible value will be (%s).".formatted(sorting, DATE_CUSTOMER_PRODUCT)).get()).build();
         }
 
+        KhatabookCustomerView khatabookDetails = fetchByCustomerId(sorting, sortingBy, khatabookId, customerId);
+
+        Link linkForGivePayment = linkTo(methodOn(PaymentController.class).gavenToCustomer(khatabookId,
+                khatabookDetails.getCustomer().customerId(),
+                PaymentDTO.nullOf())).withRel(
+                "PayTo");
+
+        Link linkForReceivePayment = linkTo(methodOn(PaymentController.class).receiveFromCustomer(khatabookId,
+                khatabookDetails.getCustomer().customerId(),
+                PaymentDTO.nullOf())).withRel(
+                "WithdrawFrom");
+        Link linkForAggregate = linkTo(methodOn(PaymentAggregationController.class).aggregatedPayment(khatabookId,
+                khatabookDetails.getCustomer().customerId(),
+                null)).withRel(
+                "Aggregate");
+
+        EntityModel<KhatabookCustomerView> entityModel = EntityModel.of(khatabookDetails);
+        entityModel.add(linkForGivePayment);
+        entityModel.add(linkForReceivePayment);
+        entityModel.add(linkForAggregate);
+        return ResponseEntity.ok(entityModel);
+    }
+
+    public KhatabookCustomerView fetchByCustomerId(String sorting,
+                                                   String sortingBy,
+                                                   String khatabookId,
+                                                   String customerId) {
 
         val khatabook = myKhatabookService.getKhatabookByKhatabookId(khatabookId);
         if (isNull(khatabook)) {
-            return ResponseEntity.of(new NotFoundException(AppEntity.KHATABOOK, khatabookId).get()).build();
+            throw new NotFoundException(AppEntity.KHATABOOK, khatabookId);
         }
         final CustomerDTO customerDetails = myCustomerService.getByCustomerId(customerId).get();
         if (isNull(customerDetails)) {
-            return ResponseEntity.of(new NotFoundException(AppEntity.CUSTOMER, customerId).get()).build();
+            throw new NotFoundException(AppEntity.CUSTOMER, customerId);
         }
         CustomerSpecificationDTO customerSpecification = null;
         if (nonNull(customerDetails.specification())) {
@@ -125,29 +138,7 @@ public class CustomerController {
         final KhatabookPaymentSummaryView customerDairy = myPaymentService.getCustomerPaymentDetailView(customerDetails, customerSpecification);
 
 
-        KhatabookDetailsView khatabookDetails = new KhatabookDetailsView(khatabook, customerDetails, customerDairy, customerSpecification);
-        final String customerLink = khatabookDetails.getCustomers().stream().findFirst().map(CustomerDTO::customerId).orElse(
-                null);
-
-        Link linkForGivePayment = linkTo(methodOn(PaymentController.class).gavenToCustomer(khatabookId,
-                customerLink,
-                PaymentDTO.nullOf())).withRel(
-                "PayTo");
-
-        Link linkForReceivePayment = linkTo(methodOn(PaymentController.class).receiveFromCustomer(khatabookId,
-                customerLink,
-                PaymentDTO.nullOf())).withRel(
-                "WithdrawFrom");
-        Link linkForAggregate = linkTo(methodOn(PaymentAggregationController.class).aggregatedPayment(khatabookId,
-                customerLink,
-                null)).withRel(
-                "Aggregate");
-
-        EntityModel<KhatabookDetailsView> entityModel = EntityModel.of(khatabookDetails);
-        entityModel.add(linkForGivePayment);
-        entityModel.add(linkForReceivePayment);
-        entityModel.add(linkForAggregate);
-        return ResponseEntity.ok(entityModel);
+        return new KhatabookCustomerView(khatabook, customerDetails, customerDairy, customerSpecification);
     }
 
     @GetMapping(path = "/{khatabookId}/msisdn/{msisdn}", produces = {"application/hal+json"})
@@ -191,6 +182,7 @@ public class CustomerController {
         entityModel.add(linkForAggregate);
         return ResponseEntity.ok(entityModel);
     }
+
     @GetMapping(path = "/{customerId}")
     public ResponseEntity<?> getCustomerById(@PathVariable String customerId) {
 
@@ -237,10 +229,9 @@ public class CustomerController {
     }
 
     @PutMapping(path = "/{khatabookId}/{customerId}")
-    public ResponseEntity<EntityModel<KhatabookDetailsView>> updateCustomer(@PathVariable String khatabookId,
+    public ResponseEntity<EntityModel<KhatabookCustomerView>> updateCustomer(@PathVariable String khatabookId,
                                                                             @PathVariable String customerId,
-                                                                            @RequestBody CustomerDTO customerDTO)
-    {
+                                                                            @RequestBody CustomerDTO customerDTO) {
 
         final CustomerDTO customerDetails = myCustomerService.getByCustomerId(customerId).get();
         if (isNull(customerDetails)) {
@@ -260,9 +251,8 @@ public class CustomerController {
             customerSpecification = customerSpecificationService.getCustomerSpecification(customerDetails.specification().id()).get();
         }
 
-        KhatabookDetailsView khatabookDetails = new KhatabookDetailsView(khatabook, customerDetails, customerDairy, customerSpecification);
-        final String customerLink = khatabookDetails.getCustomers().stream().findFirst().map(CustomerDTO::customerId).orElse(
-                null);
+        KhatabookCustomerView khatabookDetails = new KhatabookCustomerView(khatabook, customerDetails, customerDairy, customerSpecification);
+        final String customerLink = khatabookDetails.getCustomer().customerId();
 
         Link linkForGivePayment = linkTo(methodOn(PaymentController.class).gavenToCustomer(khatabookId,
                 customerLink,
@@ -278,7 +268,7 @@ public class CustomerController {
                 null)).withRel(
                 "Aggregate");
 
-        EntityModel<KhatabookDetailsView> entityModel = EntityModel.of(khatabookDetails);
+        EntityModel<KhatabookCustomerView> entityModel = EntityModel.of(khatabookDetails);
         entityModel.add(linkForGivePayment);
         entityModel.add(linkForReceivePayment);
         entityModel.add(linkForAggregate);
@@ -290,8 +280,7 @@ public class CustomerController {
             @RequestParam String version,
             @PathVariable String khatabookId,
             @PathVariable String customerId,
-            @RequestBody Map<String, Object> customerEntities)
-    {
+            @RequestBody Map<String, Object> customerEntities) {
         final CustomerUpdatable customerDetails = myCustomerService.getByCustomerId(customerId).updatable();
         if (isNull(customerDetails)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.CUSTOMER, customerId).get()).build();
@@ -333,8 +322,7 @@ public class CustomerController {
 
     private void updateSubEntityOfCustomerProduct(final CustomerUpdatable customerDetails,
                                                   final Field field,
-                                                  final Object valueToSet)
-    {
+                                                  final Object valueToSet) {
 
         switch (field.getGenericType().getTypeName()) {
             case "java.util.List<com.generic.khatabook.model.Product>" -> updateCustomerProductUpdatable(
@@ -346,8 +334,7 @@ public class CustomerController {
     }
 
     private CustomerUpdatable updateCustomerProductUpdatable(final CustomerUpdatable customerDetails,
-                                                             final List<LinkedHashMap<String, Object>> valueToSet)
-    {
+                                                             final List<LinkedHashMap<String, Object>> valueToSet) {
         List<LinkedHashMap<String, Object>> mapValue = valueToSet;
         for (final LinkedHashMap<String, Object> eachProduct : mapValue) {
 
@@ -373,8 +360,7 @@ public class CustomerController {
 
     private void setValueInField(final CustomerUpdatable oldProductSpecification,
                                  final Object valueToSet,
-                                 final Field eachField)
-    {
+                                 final Field eachField) {
         if (eachField.getGenericType().getTypeName().equals("float")) {
             ReflectionUtils.setField(eachField,
                     oldProductSpecification,
@@ -390,8 +376,7 @@ public class CustomerController {
             @RequestParam String version,
             @PathVariable String khatabookId,
             @PathVariable String customerId,
-            @RequestBody CustomerDTO customerEntities)
-    {
+            @RequestBody CustomerDTO customerEntities) {
         final CustomerUpdatable customerDetails = myCustomerService.getByCustomerId(customerId).updatable();
         if (isNull(customerDetails)) {
             return ResponseEntity.of(new NotFoundException(AppEntity.CUSTOMER, customerId).get()).build();

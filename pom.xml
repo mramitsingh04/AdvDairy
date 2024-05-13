@@ -24,13 +24,14 @@
         <module>api-gateway-server</module>
         <module>payment-service</module>
         <module>cache-service</module>
+        <module>notebook</module>
     </modules>
 
     <properties>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>
+        <java.version>22</java.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
         <testcontainers.version>1.18.0</testcontainers.version>
     </properties>
