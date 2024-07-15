@@ -5,96 +5,57 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cb0ac0c-f565-4227-bbb3-e09c1414b2be" name="Changes" comment="Update Code Changes">
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/GroupView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/KhatabookCustomerView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/KhatabookCustomersView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/KhatabookView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/KhatabookViews.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/KhatabookRestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/KhatabookRestServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/NotebookApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/config/AppClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/config/DBConnect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/config/StorageProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/controller/NotebookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/entity/FileDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/entity/GenerationDate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/entity/Notebook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/entity/Stage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/entity/TimePeriod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/AppEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/DuplicateFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/IncompatibleStateException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/InvalidArgumentException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/InvalidArgumentValueException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/LimitBonusException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/NoPaymentForAggregateException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/NotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/ResourceFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/StorageException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exceptions/StorageFileNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/exchanger/CustomerClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/CustomerDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/CustomerView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/KhatabookCustomerView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/KhatabookDetailsView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/NotebookDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/NotebookItemView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/NotebookItemsView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/NotebookView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/model/NotebookViews.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/repository/NotebookRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/IdGeneratorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/NotebookRestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/NotebookService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/StorageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/impl/FileSystemStorageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/impl/NotebookRestServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/impl/NotebookServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/mapper/Container.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/mapper/Containers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/mapper/Mapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/mapper/NotebookMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/mapper/NotebookViewMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/proxy/CustomerProxyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/proxy/CustomerProxyServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/main/resources/messages.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notebook/src/test/java/com/generic/khatabook/notebook/NotebookApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/review-service/src/main/java/com/generic/khatabook/rating/entity/Notebook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload-dir/8c8e9eb5-3e53-49b9-bd58-a327eebd0972/af9a8010-40cc-4468-943e-a38492d3695b/Amit_ZASIMNI_Cobe.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload-dir/8c8e9eb5-3e53-49b9-bd58-a327eebd0972/af9a8010-40cc-4468-943e-a38492d3695b/Feb24.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload-dir/8c8e9eb5-3e53-49b9-bd58-a327eebd0972/af9a8010-40cc-4468-943e-a38492d3695b/WhatsApp Image 2024-04-19 at 9.07.25 AM.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/GroupView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookCustomerView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookCustomersView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookViews.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/RoomServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/controller/HostalController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Bad.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/CharacteristicName.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/CharacteristicValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Characteristics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Floor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Hostal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/entity/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/BadDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/CharacteristicName.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/CharacteristicValue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/Characteristics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/FloorDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/HostalDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/model/RoomDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/repository/HostalRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/service/HostalService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/java/com/generic/khatabook/room/service/service/HostalServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/room-service/src/test/java/com/generic/khatabook/room/service/RoomServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cache-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discovery-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/discovery-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/Containers.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/Containers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/CustomerPaymentSummaryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/CustomerPaymentSummaryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookDetailsView.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/KhatabookDetailsView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/generic/khatabook/common/model/ProductDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/khatabook-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/GenericKhatabookApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/GenericKhatabookApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/KhatabookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/KhatabookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/OperatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/OperatorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/KhataBookGroupService.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/KhataBookGroupService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/KhataBookGroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/KhataBookGroupServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khatabook-service/src/test/java/com/generic/khatabook/controller/CustomerControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/test/java/com/generic/khatabook/controller/CustomerControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/payment-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/review-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/review-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerSpecificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerSpecificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/Containers.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/Containers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/CustomerProductSpecificationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/CustomerProductSpecificationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/CustomerSpecificationDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/CustomerSpecificationDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/UnitOfValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/model/UnitOfValue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/CustomerSpecificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/CustomerSpecificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/CustomerSpecificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/service/impl/CustomerSpecificationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,24 +110,24 @@
     <option name="showLibraryContents" value="true" />
     <option name="showScratchesAndConsoles" value="false" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.preview.features.used": "true",
-    "jdk.selected.JAVA_MODULE": "openjdk-22",
-    "last_directory_selection": "C:/projects/AdvDairy/notebook/src/main/java/com/generic/khatabook/notebook/service/impl",
-    "last_opened_file_path": "C:/projects/AdvDairy/notebook/src/main/java/com/generic/khatabook/notebook/model",
-    "onboarding.tips.debug.path": "C:/projects/AdvDairy/cache-service/src/main/java/com/tester/annotation/api/Main.java",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "service.view.auto.scroll.to.source": "true",
-    "settings.editor.selected.configurable": "Console"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-22&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/projects/AdvDairy/notebook/src/main/java/com/generic/khatabook/notebook/service/impl&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/projects/AdvDairy/common/src/main/java/com/generic/khatabook/common/model&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/projects/AdvDairy/cache-service/src/main/java/com/tester/annotation/api/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;service.view.auto.scroll.to.source&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.generic.khatabook.notebook.entity" />
@@ -176,11 +137,11 @@
       <recent name="com.generic.khatabook.model" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\projects\AdvDairy\common\src\main\java\com\generic\khatabook\common\model" />
       <recent name="C:\projects\AdvDairy\notebook\src\main\java\com\generic\khatabook\notebook\model" />
       <recent name="C:\projects\AdvDairy\notebook\src\main\java\com\generic\khatabook\notebook" />
       <recent name="C:\projects\AdvDairy\notebook\src\main\java\com\generic\khatabook\notebook\service\mapper" />
       <recent name="C:\projects\AdvDairy\notebook\src\main\resources" />
-      <recent name="C:\projects\AdvDairy\cache-service\src\main\java\com\tester\cache" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.generic.khatabook.rating" />
@@ -202,7 +163,7 @@
     </option>
     <option name="openRunningConfigInTab" value="true" />
   </component>
-  <component name="RunManager" selected="Application.NotebookApplication">
+  <component name="RunManager" selected="Application.ProductSpecificationApplication (0)">
     <configuration name="ApiGatewayApplication" type="Application" factoryName="Application" folderName="Api-Gateway" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.generic.khatabook.apigateway.ApiGatewayApplication" />
       <module name="api-gateway-server" />
@@ -322,10 +283,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NotebookApplication" />
+        <item itemvalue="Application.DiscoveryServerApplication" />
         <item itemvalue="Application.GenericKhatabookApplication" />
         <item itemvalue="Application.ConfigServerApplication" />
-        <item itemvalue="Application.DiscoveryServerApplication" />
+        <item itemvalue="Application.NotebookApplication" />
         <item itemvalue="JUnit.OperatorControllerTest" />
       </list>
     </recent_temporary>
@@ -402,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1704723968990</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update Code Changes">
+      <created>1715608331929</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715608331929</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -470,16 +438,6 @@
           <url>file://$PROJECT_DIR$/payment-service/src/main/java/com/generic/khatabook/Main.java</url>
           <line>15</line>
           <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerSpecificationController.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerSpecificationController.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/review-service/src/main/java/com/generic/khatabook/rating/controller/RatingController.java</url>
@@ -550,6 +508,11 @@
           <url>file://$PROJECT_DIR$/notebook/src/main/java/com/generic/khatabook/notebook/service/mapper/NotebookViewMapper.java</url>
           <line>26</line>
           <option name="timeStamp" value="164" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/khatabook-service/src/main/java/com/generic/khatabook/controller/CustomerSpecificationController.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="167" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

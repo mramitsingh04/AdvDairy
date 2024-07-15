@@ -12,6 +12,7 @@ public class Containers<T, U> implements Iterable<Container<T, U>> {
         myList = new ArrayList<>();
     }
 
+
     public Containers(final List<Container<T, U>> list) {
         myList = list;
     }
@@ -27,6 +28,14 @@ public class Containers<T, U> implements Iterable<Container<T, U>> {
     @Override
     public Iterator<Container<T, U>> iterator() {
         return myList.iterator();
+    }
+
+    public List<T> keys() {
+        return myList.stream().map(Container::get).toList();
+    }
+
+    public List<U> updatables() {
+        return myList.stream().map(Container::updatable).toList();
     }
 
     public int size() {

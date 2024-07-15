@@ -1,17 +1,7 @@
 package com.generic.khatabook.controller;
 
-import com.generic.khatabook.exceptions.AppEntity;
-import com.generic.khatabook.exceptions.DuplicateFoundException;
-import com.generic.khatabook.exceptions.InvalidArgumentException;
-import com.generic.khatabook.exceptions.NotFoundException;
-import com.generic.khatabook.exceptions.ResourceFoundException;
-import com.generic.khatabook.model.Container;
-import com.generic.khatabook.model.Containers;
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.CustomerProductSpecificationDTO;
-import com.generic.khatabook.model.CustomerProductSpecificationUpdatable;
-import com.generic.khatabook.model.CustomerSpecificationDTO;
-import com.generic.khatabook.model.CustomerSpecificationUpdatable;
+import com.generic.khatabook.exceptions.*;
+import com.generic.khatabook.model.*;
 import com.generic.khatabook.service.CustomerService;
 import com.generic.khatabook.service.CustomerSpecificationService;
 import com.generic.khatabook.service.IdGeneratorService;
@@ -19,26 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
@@ -53,10 +31,17 @@ public class CustomerSpecificationController {
     private final CustomerService myCustomerService;
 
 
-
     @GetMapping(path = "/{khatabookId}/{customerId}/specifications")
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> getAll(@PathVariable String khatabookId,
+                                    @PathVariable String customerId) {
+
+        final CustomerDTO customerDetails = myCustomerService.getByCustomerId(customerId).get();
+
+
+        if (isNull(customerDetails)) {
+            return ResponseEntity.of(new NotFoundException(AppEntity.CUSTOMER, customerId).get()).build();
+        }
+        return ResponseEntity.ok(myCustomerSpecificationService.getCustomer(customerDetails));
     }
 
     @PostMapping(path = "/{khatabookId}/{customerId}/specification")
@@ -73,7 +58,7 @@ public class CustomerSpecificationController {
             return ResponseEntity.of(new NotFoundException(AppEntity.KHATABOOK, khatabookId).get()).build();
         }
 
-        if (nonNull(customerDetails.specification())) {
+        if (nonNull(customerDetails.specification()) && !"System Default".equals(customerDetails.specification().name())) {
             return ResponseEntity.of(new ResourceFoundException(AppEntity.CUSTOMER_SPECIFICATION,
                     customerDetails.specification().id()).get()).build();
         }
@@ -82,14 +67,14 @@ public class CustomerSpecificationController {
         customerSpecificationDTO = customerSpecificationDTO.copyOf(myIdGeneratorService.generateId());
 
         ResponseEntity<?> checkForDuplicateRequestCreation = checkForDuplicateRequestCreation(customerSpecificationDTO);
-        if (checkForDuplicateRequestCreation.getStatusCode()!=HttpStatus.OK)
+        if (checkForDuplicateRequestCreation.getStatusCode() != HttpStatus.OK)
             return checkForDuplicateRequestCreation;
 
 
         myCustomerSpecificationService.mergeSpecification(customerDetails, customerSpecificationDTO);
 
 
-        final CustomerSpecificationDTO saved = myCustomerSpecificationService.save(customerSpecificationDTO);
+//        final CustomerSpecificationDTO saved = myCustomerSpecificationService.save(customerSpecificationDTO);
 
 
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{khatabookId" + "}/customer" + "/{customerId" + "}/specification" + "/{specificationId}").buildAndExpand(
@@ -226,8 +211,7 @@ public class CustomerSpecificationController {
                     updateCustomerProductSpecificationUpdatable(
                             entityModel,
                             (List<LinkedHashMap<String, Object>>) valueToSet);
-            default ->
-                    throw new InvalidArgumentException(AppEntity.CUSTOMER_SPECIFICATION, field.getName());
+            default -> throw new InvalidArgumentException(AppEntity.CUSTOMER_SPECIFICATION, field.getName());
         }
     }
 

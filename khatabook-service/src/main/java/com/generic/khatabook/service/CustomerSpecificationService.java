@@ -12,6 +12,7 @@ public interface CustomerSpecificationService {
     CustomerSpecificationDTO save(CustomerSpecificationDTO customerSpecificationService);
 
     Containers<CustomerSpecificationDTO, CustomerSpecificationUpdatable> getByCustomerId(final String customerId);
+    CustomerSpecificationDTO getCustomer(final CustomerDTO customer);
 
     Containers<CustomerSpecificationDTO, CustomerSpecificationUpdatable> getCustomerSpecification(String khatabookId, String customerId);
 

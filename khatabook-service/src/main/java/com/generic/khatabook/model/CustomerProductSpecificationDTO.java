@@ -1,9 +1,11 @@
 package com.generic.khatabook.model;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Objects;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record CustomerProductSpecificationDTO(String id, String productId,
-                                              float quantity,
+                                              @JsonInclude(JsonInclude.Include.NON_DEFAULT) float quantity,
                                               UnitOfValue unitOfValue,
                                               UnitOfMeasurement unitOfMeasurement) {
 

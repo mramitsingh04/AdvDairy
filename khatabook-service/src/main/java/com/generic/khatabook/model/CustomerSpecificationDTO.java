@@ -1,12 +1,14 @@
 package com.generic.khatabook.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonRootName(value = "specification")
 public record CustomerSpecificationDTO(String id, String name,
                                        String description, int version,
                                        String specificationFor,

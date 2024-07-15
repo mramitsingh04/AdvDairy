@@ -4,30 +4,31 @@ import com.generic.khatabook.entity.Customer;
 import com.generic.khatabook.entity.CustomerSpecification;
 import com.generic.khatabook.exceptions.AppEntity;
 import com.generic.khatabook.exceptions.DuplicateFoundException;
-import com.generic.khatabook.model.Container;
-import com.generic.khatabook.model.Containers;
-import com.generic.khatabook.model.CustomerDTO;
-import com.generic.khatabook.model.CustomerSpecificationDTO;
-import com.generic.khatabook.model.CustomerSpecificationUpdatable;
+import com.generic.khatabook.model.*;
 import com.generic.khatabook.repository.CustomerRepository;
 import com.generic.khatabook.repository.CustomerSpecificationRepository;
 import com.generic.khatabook.service.CustomerSpecificationService;
+import com.generic.khatabook.service.ProductService;
 import com.generic.khatabook.service.mapper.CustomerSpecificationMapper;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import java.util.List;
 
 import static java.util.Objects.isNull;
+
 @Service
+@AllArgsConstructor
 public class CustomerSpecificationServiceImpl implements CustomerSpecificationService {
 
     private CustomerSpecificationRepository myCustomerSpecificationRepository;
     private CustomerSpecificationMapper myMapper;
 
     private CustomerRepository customerRepository;
+    private ProductService productService;
 
+/*
     @Autowired
     public CustomerSpecificationServiceImpl(final CustomerSpecificationRepository thatCustomerSpecificationRepository,
                                             final CustomerSpecificationMapper customerSpecificationMapper, CustomerRepository customerRepository) {
@@ -35,6 +36,7 @@ public class CustomerSpecificationServiceImpl implements CustomerSpecificationSe
         myMapper = customerSpecificationMapper;
         this.customerRepository = customerRepository;
     }
+*/
 
     @Override
     @Transactional
@@ -43,6 +45,24 @@ public class CustomerSpecificationServiceImpl implements CustomerSpecificationSe
 
         //return myMapper.mapToDTO(myCustomerSpecificationRepository.save(entity));
         return null;
+    }
+
+    @Override
+    public CustomerSpecificationDTO getCustomer(CustomerDTO customer) {
+
+        CustomerSpecificationDTO specification = customer.specification();
+        List<CustomerSpecificationDTO> lst = getByCustomerId(customer.customerId()).keys();
+        if (specification != null && !lst.isEmpty()) {
+
+            List<ProductDTO> customerProducts = productService.getCustomerProducts(customer.products());
+            return new CustomerSpecificationDTO(specification.id(), specification.name(), specification.description(), specification.version(), specification.specificationFor(), customerProducts.stream().map(this::toDto).toList(), null, null, null);
+
+        }
+        return null;
+    }
+
+    private CustomerProductSpecificationDTO toDto(ProductDTO dto) {
+        return new CustomerProductSpecificationDTO(null, dto.id(), dto.quantity(), new UnitOfValue(dto.price(), null, null), dto.unitOfMeasurement());
     }
 
     @Override
@@ -79,6 +99,7 @@ public class CustomerSpecificationServiceImpl implements CustomerSpecificationSe
     }
 
     @Override
+    @Transactional(value = Transactional.TxType.REQUIRED)
     public void mergeSpecification(CustomerDTO customerDetails, CustomerSpecificationDTO dto) {
 
         if (myCustomerSpecificationRepository.existsById(dto.id())) {

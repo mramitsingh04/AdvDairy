@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonRootName(value = "customer")
 @Relation(collectionRelation = "customers")
-public final class KhatabookDetailsView extends RepresentationModel<KhatabookDetailsView> {
+public final class KhatabookCustomersView extends RepresentationModel<KhatabookCustomersView> {
     private final String bookId;
     private final String khatabookId;
     private final int numberOfCustomers;
@@ -20,7 +20,7 @@ public final class KhatabookDetailsView extends RepresentationModel<KhatabookDet
     private final KhatabookPaymentSummaryView paymentSummary;
     private final CustomerSpecificationDTO customerSpecification;
 
-    public KhatabookDetailsView(String bookId, String khatabookId, int numberOfCustomers, Set<CustomerDTO> customers, KhatabookPaymentSummaryView paymentSummary, CustomerSpecificationDTO customerSpecification) {
+    public KhatabookCustomersView(String bookId, String khatabookId, int numberOfCustomers, Set<CustomerDTO> customers, KhatabookPaymentSummaryView paymentSummary, CustomerSpecificationDTO customerSpecification) {
         this.bookId = bookId;
         this.khatabookId = khatabookId;
         this.numberOfCustomers = numberOfCustomers;
@@ -30,15 +30,15 @@ public final class KhatabookDetailsView extends RepresentationModel<KhatabookDet
     }
 
 
-    public KhatabookDetailsView(final KhatabookDTO khatabookDTO, final Set<CustomerDTO> customers) {
+    public KhatabookCustomersView(final KhatabookDTO khatabookDTO, final Set<CustomerDTO> customers) {
         this(khatabookDTO.bookId(), khatabookDTO.khatabookId(), customers.size(), customers, KhatabookPaymentSummaryView.empty(), null);
     }
 
-    public KhatabookDetailsView(final KhatabookDTO khatabookDTO, final Set<CustomerDTO> customers, final KhatabookPaymentSummaryView khatabookPaymentSummary) {
+    public KhatabookCustomersView(final KhatabookDTO khatabookDTO, final Set<CustomerDTO> customers, final KhatabookPaymentSummaryView khatabookPaymentSummary) {
         this(khatabookDTO.bookId(), khatabookDTO.khatabookId(), customers.size(), customers, khatabookPaymentSummary, null);
     }
 
-    public KhatabookDetailsView(final KhatabookDTO khatabook, final CustomerDTO customer, final KhatabookPaymentSummaryView customerDairy, CustomerSpecificationDTO customerSpecification) {
+    public KhatabookCustomersView(final KhatabookDTO khatabook, final CustomerDTO customer, final KhatabookPaymentSummaryView customerDairy, CustomerSpecificationDTO customerSpecification) {
         this(khatabook.bookId(), khatabook.khatabookId(), 1, Set.of(customer), customerDairy, customerSpecification);
     }
 

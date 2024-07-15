@@ -1,5 +1,6 @@
 package com.generic.khatabook.common.model;
 
+
 import java.time.LocalDateTime;
 
 public record CustomerPaymentSummaryView(String customerId,
